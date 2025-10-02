@@ -56,7 +56,7 @@ $default_language = 'ru'; // 'ru' for Russian, 'en' for English
 - PHP 7.4+
 - MySQL 5.7+
 - Apache/Nginx (static caching recommended)
-- [SharpTimer by deafps](https://github.com/Letaryat/poor-sharptimer/tree/dev) with mysql enabled
+- [SharpTimer by Letaryat](https://github.com/Letaryat/poor-sharptimer/tree/dev) with mysql enabled
 
 <<<<<<< Updated upstream
 ## Быстрый старт
