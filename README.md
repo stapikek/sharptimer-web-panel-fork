@@ -62,9 +62,6 @@ $default_language = 'ru'; // 'ru' for Russian, 'en' for English
 - Configure the database and `$api_keys` in `core/config.php`
 - Upload the project to the hosting/locally
 
-## TEST
-- database_optimization.sql - Database optimization. Use at your own risk
-=======
 ## Quick Start
 - Configure database and `$api_keys` in `core/config.php`
 - Upload project to hosting/local environment
