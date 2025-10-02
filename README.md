@@ -1,3 +1,5 @@
+# sharptimer-web-panel-fork
+
 Минималистичный сайт для отображения рекордов карт и профилей игроков. Легко разворачивается в любом домене/подпапке, использует относительные пути.
 
 ## Структура
@@ -50,6 +52,7 @@ $api_keys = [
 - PHP 7.4+
 - MySQL 5.7+
 - Apache/Nginx (желательно включить кеш статики)
+- [SharpTimer by deafps](https://github.com/DEAFPS/SharpTimer) with mysql enabled
 
 ## Быстрый старт
 - Настройте БД и `$api_keys` в `core/config.php`
