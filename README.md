@@ -73,4 +73,3 @@ database_optimization.sql - Оптимизация базы данных. Исп
 
 ## TEST
 database_optimization.sql - Database optimization. Use at your own risk.
->>>>>>> Stashed changes
