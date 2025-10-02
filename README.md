@@ -1,59 +1,64 @@
 # sharptimer-web-panel-fork
 
-Минималистичный сайт для отображения рекордов карт и профилей игроков. Легко разворачивается в любом домене/подпапке, использует относительные пути.
+A minimalist website for displaying map records and player profiles. Easily deployable on any domain/subfolder, uses relative paths.
 
-## Структура
+## Structure
 ```
 core/
-  config.php            # БД, настройки, $api_keys и get_api_key()
+  config.php            # Database, settings, $api_keys and get_api_key()
   includes/
-    header.php          # Шапка, навигация, подключения CSS/JS
-    locale.php          # RU/EN переводы
-    path_utils.php      # Универсальные пути (get*Path)
-    security.php        # Валидация входа
+    header.php          # Header, navigation, CSS/JS includes
+    locale.php          # RU/EN translations
+    path_utils.php      # Universal paths (get*Path)
+    security.php        # Login validation
     translations/
 assets/
-  css/                  # style.css, header.css, records.css и др.
+  css/                  # style.css, header.css, records.css, etc.
   js/                   # main.js, header-inline.js, index-inline.js
   images/, dist/, fonts/
 pages/
-  index.php (в корне)   # Главная
-  pages/profile.php     # Профиль игрока
-  pages/map_records.php # Рекорды по карте
-  pages/rules.php       # Правила
-  pages/records.php     # Новый раздел «Рекорды»
+  index.php (in root)   # Main page
+  pages/profile.php     # Player profile
+  pages/map_records.php # Map records
+  pages/rules.php       # Rules
+  pages/records.php     # New "Records" section
 steam/
-  steam_api.php         # Вспомогательные функции Steam (без авторизации)
-  steam_avatar.php      # Получение аватарок через Steam API
+  steam_api.php         # Steam helper functions (no authentication)
+  steam_avatar.php      # Avatar fetching via Steam API
 ```
 
-## Настройка
-1) База данных в `core/config.php`:
+## Setup
+1) Database in `core/config.php`:
 ```php
 $servername = "localhost";
 $username   = "user";
 $password   = "pass";
-$dbname     = "db";
+$dbname     = "surf";
 ```
-2) Ключи API централизованно в `core/config.php`:
+2) API keys centralized in `core/config.php`:
 ```php
 $api_keys = [
-  'steam' => ''  // Steam Web API Key (по желанию)
+  'steam' => ''  // Steam Web API Key (optional)
 ];
 ```
-3) Язык и переводы: `core/includes/locale.php`, `translations/ru.php`, `en.php`.
+3) Default language in `core/config.php`:
+```php
+$default_language = 'ru'; // 'ru' for Russian, 'en' for English
+```
+4) Language and translations: `core/includes/locale.php`, `translations/ru.php`, `en.php`.
 
-## Особенности
-- Работает на любом домене/в подпапке.
-- Раздел «Рекорды» с фильтром по картам и опцией «Все карты».
-- Карты с `_bonus` скрыты из списков и выборок.
+## Features
+- Works on any domain/subfolder.
+- "Records" section with map filter and "All maps" option
+- Maps with `_bonus` are hidden from lists and selections
 
-## Требования
+## Requirements
 - PHP 7.4+
 - MySQL 5.7+
-- Apache/Nginx (желательно включить кеш статики)
-- [SharpTimer by deafps](https://github.com/DEAFPS/SharpTimer) with mysql enabled
+- Apache/Nginx (static caching recommended)
+- [SharpTimer by deafps](https://github.com/Letaryat/poor-sharptimer/tree/dev) with mysql enabled
 
+<<<<<<< Updated upstream
 ## Быстрый старт
 - Настройте БД и `$api_keys` в `core/config.php`
 - Загрузите проект на хостинг/локально
@@ -61,3 +66,11 @@ $api_keys = [
 
 ## TEST
 database_optimization.sql - Оптимизация базы данных. Использовать на свой страх и риск
+=======
+## Quick Start
+- Configure database and `$api_keys` in `core/config.php`
+- Upload project to hosting/local environment
+
+## TEST
+database_optimization.sql - Database optimization. Use at your own risk.
+>>>>>>> Stashed changes
