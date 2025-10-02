@@ -63,6 +63,7 @@ $default_language = 'ru'; // 'ru' for Russian, 'en' for English
 - Upload the project to the hosting/locally
 
 ## TEST
+
 database_optimization.sql - Database optimization. Use at your own risk
 =======
 ## Quick Start
