@@ -1,0 +1,24 @@
+{
+  "default": {
+    "title": "DECIDE",
+    "description": "Поиск по никнейму или SteamID64",
+    "keywords": "surf, cs2, counter-strike, records, leaderboard, surf maps, surf servers",
+    "author": "DECIDE",
+    "og_image": "https://i.imgur.com/6gHn8TN.png",
+    "theme_color": "#f52f2f"
+  },
+  "pages": {
+    "/index.php": {
+      "title": "DECIDE — Surf Records"
+    },
+    "/pages/profile.php": {
+      "title": "Профиль игрока — DECIDE",
+      "description": "Профиль игрока и рекорды на картах"
+    },
+    "/pages/map_records.php": {
+      "title": "Рекорды на карте — DECIDE",
+      "description": "Список рекордов на карте"
+    }
+  }
+}
+

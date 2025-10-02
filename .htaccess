@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    DirectoryIndex index.php
+
+    # Не переписывать существующие файлы/директории
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Редирект с /index.php на /
+    RewriteRule ^index\.php$ / [R=301,L]
+
+    # Канонизация: .php -> без расширения
+    RewriteCond %{THE_REQUEST} \s/+(.+)\.php[\s?] [NC]
+    RewriteRule ^ %1 [R=301,NE,L]
+
+    # Внутренняя подмена: /path -> /path.php (если файл существует)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.+)$ $1.php [L,QSA]
+</IfModule>

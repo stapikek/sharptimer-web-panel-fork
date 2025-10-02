@@ -1,0 +1,299 @@
+/* Header Layout Styles */
+.header-layout {
+    width: 100%;
+    z-index: 100;
+    position: relative;
+    margin: 0;
+    /* padding: 20px 0; */
+}
+
+.unified-header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 20px 0;
+    box-shadow: var(--shadow);
+    z-index: 101;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.unified-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.search-container {
+    display: none;
+    justify-content: center;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 20px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.search-container.show {
+    display: flex;
+    animation: slideInSearch 0.3s ease forwards;
+}
+
+@keyframes slideInSearch {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Search Toggle Button specific styles */
+.search-toggle-button {
+    justify-content: center;
+    font-size: 1em;
+    width: 44px;
+}
+
+.search-toggle-button.active {
+    background: var(--hover);
+    color: white;
+    border-color: var(--hover);
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 16px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--borderradius);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--fontcolor);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--hover);
+    box-shadow: 0 0 0 3px rgba(245, 47, 47, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-box input::placeholder {
+    color: #888;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-section h1 {
+    color: var(--hover);
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.logo-section h1 a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.logo-section h1 a:hover {
+    color: var(--fontcolor);
+    transform: scale(1.05);
+}
+
+.navigation-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* Common styles for all navigation buttons */
+.nav-button,
+.language-button,
+.search-toggle-button {
+    height: 44px;
+    min-height: 44px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    background: var(--secondary);
+    color: var(--fontcolor);
+    border-radius: var(--borderradius);
+    border: 2px solid var(--border-col);
+    transition: all 0.2s;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-button:hover,
+.language-button:hover,
+.search-toggle-button:hover {
+    background: var(--hover);
+    color: white;
+    border-color: var(--hover);
+    transform: translateY(-2px);
+}
+
+.language-switcher {
+    position: relative;
+    display: inline-block;
+    z-index: 103;
+}
+
+.language-button {
+    gap: 5px;
+    padding: 10px 12px;
+    font-size: 0.9em;
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--secondary);
+    border: 1px solid var(--border-col);
+    border-radius: var(--borderradius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 104;
+    min-width: 120px;
+    display: none;
+}
+
+.language-dropdown.show {
+    display: block;
+}
+
+.language-option {
+    display: block;
+    padding: 10px 15px;
+    color: var(--fontcolor);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 1px solid var(--border-col);
+}
+
+.language-option:last-child {
+    border-bottom: none;
+}
+
+.language-option:hover {
+    background: var(--stripe-hover);
+    color: var(--hover);
+}
+
+.language-option.active {
+    background: var(--hover);
+    color: white;
+}
+
+.nav-button {
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 0.9em;
+}
+
+.steam-login {
+    background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
+    border-color: #66c0f4;
+    color: #66c0f4;
+}
+
+.steam-login:hover {
+    background: linear-gradient(135deg, #66c0f4 0%, #4f94cd 100%);
+    color: white;
+    border-color: #66c0f4;
+    box-shadow: 0 4px 15px rgba(102, 192, 244, 0.3);
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .navigation-buttons {
+        justify-content: center;
+    }
+}
+
+/* Mobile styles for header layout */
+@media (max-width: 768px) {
+    .header-layout {
+        padding: 10px 0;
+    }
+    
+    .unified-header-content {
+        padding: 0 15px;
+        gap: 15px;
+    }
+    
+    .unified-header {
+        gap: 15px;
+    }
+    
+    .search-container {
+        padding-top: 15px;
+    }
+    
+    .search-box {
+        max-width: 100%;
+    }
+    
+    /* Mobile button heights */
+    .nav-button,
+    .language-button,
+    .search-toggle-button {
+        height: 40px;
+        min-height: 40px;
+    }
+    
+    .search-toggle-button {
+        width: 40px;
+    }
+    
+    .nav-button,
+    .language-button {
+        padding: 8px 12px;
+    }
+}

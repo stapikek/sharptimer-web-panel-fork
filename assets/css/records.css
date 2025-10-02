@@ -1,0 +1,350 @@
+/* Стили для страницы рекордов */
+
+.records-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--bg-primary);
+    min-height: calc(100vh - 200px);
+    position: relative;
+    z-index: 1;
+}
+
+.records-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.records-header h1 {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Секция фильтров */
+.filter-section {
+    background: rgba(26, 26, 26, 0.8);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    position: relative;
+    z-index: 2;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 3;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    color: var(--text-primary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.select-wrapper {
+    position: relative;
+    min-width: 260px;
+    z-index: 4;
+}
+
+.select-wrapper::after {
+    content: "\f078"; /* fa-chevron-down */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    pointer-events: none;
+    transition: color 0.3s ease;
+    z-index: 5;
+}
+
+.map-dropdown {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 12px 44px 12px 14px;
+    border: 2px solid var(--hover);
+    border-radius: 10px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    position: relative;
+    z-index: 6;
+}
+
+.map-dropdown:hover {
+    border-color: var(--accent-color);
+}
+
+.map-dropdown:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(245, 47, 47, 0.12);
+    background: var(--bg-primary);
+}
+
+.map-dropdown option {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.map-dropdown option:disabled {
+    color: var(--text-secondary) !important;
+}
+
+.map-dropdown option:checked,
+.map-dropdown option:hover {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+.show-button {
+    padding: 10px 20px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    z-index: 3;
+}
+
+.show-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(245, 47, 47, 0.3);
+}
+
+/* Секция рекордов */
+.records-section {
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    position: relative;
+    z-index: 1;
+}
+
+.records-table {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 150px;
+    gap: 15px;
+    padding: 15px 20px;
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 150px;
+    gap: 15px;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 2;
+}
+
+.table-row:hover {
+    background: var(--bg-tertiary);
+    transform: translateX(5px);
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.col-rank {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 18px;
+}
+
+.col-player a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.col-player a:hover {
+    color: var(--accent-color);
+}
+
+.col-map a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.col-map a:hover {
+    color: var(--accent-color);
+}
+
+.col-time {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Сообщение об отсутствии рекордов */
+.no-records {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 2;
+}
+
+.no-records p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Примечание о лимите */
+.records-note {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+    position: relative;
+    z-index: 2;
+}
+
+.records-note i {
+    color: var(--accent-color);
+    margin-right: 5px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .records-container {
+        padding: 15px;
+    }
+    
+    .records-header h1 {
+        font-size: 2rem;
+    }
+    
+    .filter-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .select-wrapper { min-width: 100%; }
+    .map-dropdown { min-width: auto; width: 100%; }
+    
+    .table-header,
+    .table-row {
+        grid-template-columns: 60px 1fr 1fr 120px;
+        gap: 10px;
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .col-rank {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-header,
+    .table-row {
+        grid-template-columns: 50px 1fr 100px;
+        gap: 8px;
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    .col-map {
+        display: none; /* Скрываем колонку карты на очень маленьких экранах */
+    }
+    
+    .table-header .col-map,
+    .table-row .col-map {
+        display: none;
+    }
+}
+
+/* Стили для топ-3 мест */
+.table-row:nth-child(1) .col-rank {
+    color: #ffd700; /* Золото */
+    font-size: 20px;
+}
+
+.table-row:nth-child(2) .col-rank {
+    color: #c0c0c0; /* Серебро */
+    font-size: 19px;
+}
+
+.table-row:nth-child(3) .col-rank {
+    color: #cd7f32; /* Бронза */
+    font-size: 18px;
+}
+
+/* Анимация загрузки */
+.records-table {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
