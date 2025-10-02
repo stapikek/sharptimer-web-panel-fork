@@ -122,5 +122,27 @@ return [
     'all_maps' => 'All maps',
     'show_records' => 'Show',
     'place' => 'Place',
+    
+    // 404 page
+    '404_title' => 'Page Not Found',
+    '404_description' => 'Sorry, the requested page does not exist or has been moved.',
+    '404_home' => 'Go Home',
+    '404_back' => 'Go Back',
+    '404_suggestions_title' => 'You might be interested in:',
+    
+    // Server monitoring
+    'server_dead' => 'Dead',
+    'server_map' => 'Map',
+    'server_players' => 'Players',
+    'server_connect' => 'Connect',
+    'server_online' => 'Online',
+    'server_offline' => 'Offline',
+    'server_separator' => '----',
+    
+    // Map categories
+    'map_surf' => 'SURF',
+    'map_kz' => 'KZ',
+    'map_bhop' => 'BHOP',
+    'map_other' => 'OTHER',
 ];
 ?>

@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author stapi
+ *
+ * @link https://steamcommunity.com/id/stapi1337/
+ * @link https://github.com/stapikek
+ */
 require_once("core/config.php");
 require_once('assets/GameQ/Autoloader.php');
 require_once('core/includes/locale.php');
@@ -56,7 +62,7 @@ include("core/includes/header.php");
                                 <?php
                                 if (empty($serverq[$x]['fakename'])) {
                                     if ($results[$serverq[$x]['host']]['gq_online'] == "0") {
-                                        echo "Dead";
+                                        echo t('server_dead');
                                     } else {
                                         echo $results[$serverq[$x]['host']]['gq_hostname'];
                                     }
@@ -81,13 +87,13 @@ include("core/includes/header.php");
                                 </a> </p>
                         </div>
                         <?php if ($results[$serverq[$x]['host']]['gq_online'] == "0") {
-                            echo "----";
+                            echo t('server_separator');
                         } else { ?>
                             <div class="moreinfo">
-                                <p>Map:
+                                <p><?php echo t('server_map'); ?>:
                                     <?php echo $results[$serverq[$x]['host']]['map'] ?>
                                 </p>
-                                <p>Players:
+                                <p><?php echo t('server_players'); ?>:
                                     <?php echo $results[$serverq[$x]['host']]['num_players'] ?> /
                                     <?php echo $results[$serverq[$x]['host']]['max_players'] ?>
                                 </p>
@@ -139,7 +145,7 @@ include("core/includes/header.php");
                                 } else {
                                     echo '"';
                                 }
-                                echo 'onclick="openMode(event,' . "'surf'" . ')">SURF</li>';
+                                echo 'onclick="openMode(event,' . "'surf'" . ')">' . t('map_surf') . '</li>';
                             }
                             if ($resultbh->num_rows > 0) {
                                 echo '<li class="tablink';
@@ -148,7 +154,7 @@ include("core/includes/header.php");
                                 } else {
                                     echo '"';
                                 }
-                                echo 'onclick="openMode(event,' . "'bh'" . ')">BH</li>';
+                                echo 'onclick="openMode(event,' . "'bh'" . ')">' . t('map_bhop') . '</li>';
                             }
                             if ($resultkz->num_rows > 0) {
                                 echo '<li class="tablink';
@@ -157,7 +163,7 @@ include("core/includes/header.php");
                                 } else {
                                     echo '"';
                                 }
-                                echo 'onclick="openMode(event,' . "'kz'" . ')">KZ</li>';
+                                echo 'onclick="openMode(event,' . "'kz'" . ')">' . t('map_kz') . '</li>';
                             }
                             if ($resultother->num_rows > 0) {
                                 echo '<li class="tablink';
@@ -166,7 +172,7 @@ include("core/includes/header.php");
                                 } else {
                                     echo '"';
                                 }
-                                echo 'onclick="openMode(event,' . "'other'" . ')">Other</li>';
+                                echo 'onclick="openMode(event,' . "'other'" . ')">' . t('map_other') . '</li>';
                             }
                         } else {
                             echo "";

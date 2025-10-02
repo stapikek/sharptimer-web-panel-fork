@@ -2,11 +2,6 @@
     RewriteEngine On
     DirectoryIndex index.php
 
-    # Не переписывать существующие файлы/директории
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^ - [L]
-
     # Редирект с /index.php на /
     RewriteRule ^index\.php$ / [R=301,L]
 
@@ -19,4 +14,13 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}\.php -f
     RewriteRule ^(.+)$ $1.php [L,QSA]
+
+    # 404 для несуществующих страниц (только если не файл и не директория)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php !-f
+    RewriteRule ^.*$ 404.php [L]
 </IfModule>
+
+# Обработка 404 ошибок
+ErrorDocument 404 /404.php

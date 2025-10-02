@@ -1,53 +1,53 @@
--- Оптимизация базы данных
--- Создание индексов для улучшения производительности
+-- Database Optimization
+-- Creating indexes for performance improvement
 
--- Индекс для поиска по SteamID (основной запрос)
+-- Index for searching by SteamID (main query)
 CREATE INDEX IF NOT EXISTS idx_steamid ON PlayerRecords(SteamID);
 
--- Индекс для поиска по MapName (основной запрос)
+-- Index for searching by MapName (main query)
 CREATE INDEX IF NOT EXISTS idx_mapname ON PlayerRecords(MapName);
 
--- Составной индекс для поиска лучших рекордов по карте
+-- Composite index for searching best records by map
 CREATE INDEX IF NOT EXISTS idx_mapname_timer ON PlayerRecords(MapName, TimerTicks);
 
--- Составной индекс для поиска рекордов игрока по карте
+-- Composite index for searching player records by map
 CREATE INDEX IF NOT EXISTS idx_steamid_mapname ON PlayerRecords(SteamID, MapName);
 
--- Индекс для поиска по имени игрока
+-- Index for searching by player name
 CREATE INDEX IF NOT EXISTS idx_playername ON PlayerRecords(PlayerName);
 
--- Составной индекс для поиска по SteamID и времени (для сортировки)
+-- Composite index for searching by SteamID and time (for sorting)
 CREATE INDEX IF NOT EXISTS idx_steamid_timer ON PlayerRecords(SteamID, TimerTicks);
 
--- Индекс для поиска по времени (для сортировки рекордов)
+-- Index for searching by time (for record sorting)
 CREATE INDEX IF NOT EXISTS idx_timer ON PlayerRecords(TimerTicks);
 
--- Индекс для поиска по дате (если используется UnixStamp)
+-- Index for searching by date (if using UnixStamp)
 CREATE INDEX IF NOT EXISTS idx_unixstamp ON PlayerRecords(UnixStamp);
 
--- Составной индекс для сложных запросов с группировкой
+-- Composite index for complex queries with grouping
 CREATE INDEX IF NOT EXISTS idx_steamid_mapname_timer ON PlayerRecords(SteamID, MapName, TimerTicks);
 
--- Оптимизация таблицы для быстрого поиска
--- Анализ таблицы для обновления статистики
+-- Table optimization for fast searching
+-- Table analysis for statistics update
 ANALYZE TABLE PlayerRecords;
 
--- Настройки MySQL для оптимизации
--- Увеличиваем размер буфера для запросов
+-- MySQL settings for optimization
+-- Increasing buffer size for queries
 SET SESSION sort_buffer_size = 2097152; -- 2MB
 SET SESSION read_buffer_size = 1048576;  -- 1MB
 SET SESSION read_rnd_buffer_size = 1048576; -- 1MB
 
--- Включаем кэширование запросов
+-- Enabling query caching
 SET SESSION query_cache_type = ON;
 SET SESSION query_cache_size = 67108864; -- 64MB
 
--- Оптимизация для InnoDB
+-- Optimization for InnoDB
 SET SESSION innodb_buffer_pool_size = 134217728; -- 128MB
 SET SESSION innodb_log_file_size = 268435456; -- 256MB
 SET SESSION innodb_flush_log_at_trx_commit = 2;
 
--- Создание представлений для часто используемых запросов
+-- Creating views for frequently used queries
 CREATE OR REPLACE VIEW v_player_stats AS
 SELECT 
     SteamID,
@@ -69,27 +69,27 @@ SELECT
 FROM PlayerRecords 
 GROUP BY MapName;
 
--- Создание процедуры для очистки старых записей (опционально)
+-- Creating procedure for cleaning old records (optional)
 DELIMITER //
 CREATE PROCEDURE CleanOldRecords(IN days_old INT)
 BEGIN
     DECLARE done INT DEFAULT FALSE;
     DECLARE affected_rows INT DEFAULT 0;
     
-    -- Удаляем записи старше указанного количества дней
+    -- Delete records older than specified number of days
     DELETE FROM PlayerRecords 
     WHERE UnixStamp < (UNIX_TIMESTAMP() - (days_old * 86400));
     
     SET affected_rows = ROW_COUNT();
     
-    -- Оптимизируем таблицу после удаления
+    -- Optimize table after deletion
     OPTIMIZE TABLE PlayerRecords;
     
-    SELECT CONCAT('Удалено ', affected_rows, ' старых записей') as result;
+    SELECT CONCAT('Deleted ', affected_rows, ' old records') as result;
 END //
 DELIMITER ;
 
--- Создание функции для быстрого поиска игроков
+-- Creating function for fast player search
 DELIMITER //
 CREATE FUNCTION GetPlayerBestTime(p_steamid VARCHAR(17), p_mapname VARCHAR(100))
 RETURNS VARCHAR(20)
@@ -108,14 +108,14 @@ BEGIN
 END //
 DELIMITER ;
 
--- Создание триггера для автоматического обновления статистики
+-- Creating trigger for automatic statistics update
 DELIMITER //
 CREATE TRIGGER tr_player_records_after_insert
 AFTER INSERT ON PlayerRecords
 FOR EACH ROW
 BEGIN
-    -- Здесь можно добавить логику для обновления кэша или статистики
-    -- Например, обновление счетчика записей игрока
+    -- Add logic for cache or statistics update here
+    -- For example, updating player record counter
     INSERT IGNORE INTO player_cache (SteamID, PlayerName, last_updated)
     VALUES (NEW.SteamID, NEW.PlayerName, NOW())
     ON DUPLICATE KEY UPDATE 
@@ -124,7 +124,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- Создание таблицы для кэширования (опционально)
+-- Creating cache table (optional)
 CREATE TABLE IF NOT EXISTS player_cache (
     SteamID VARCHAR(17) PRIMARY KEY,
     PlayerName VARCHAR(100),
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS player_cache (
     INDEX idx_last_updated (last_updated)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Создание таблицы для кэширования статистики карт
+-- Creating map statistics cache table
 CREATE TABLE IF NOT EXISTS map_cache (
     MapName VARCHAR(100) PRIMARY KEY,
     unique_players INT DEFAULT 0,

@@ -6,7 +6,14 @@ if (session_status() == PHP_SESSION_NONE) {
 
 $supported_languages = ['ru', 'en'];
 
-$default_language = 'ru';
+// Получаем язык по умолчанию из config.php
+require_once __DIR__ . '/../config.php';
+$default_language = isset($default_language) ? $default_language : 'ru';
+
+// Проверяем, что язык по умолчанию поддерживается
+if (!in_array($default_language, $supported_languages)) {
+    $default_language = 'ru'; // Fallback на русский
+}
 
 if (isset($_GET['lang']) && in_array($_GET['lang'], $supported_languages)) {
     $_SESSION['language'] = $_GET['lang'];
@@ -67,6 +74,11 @@ function getCurrentLanguage() {
 function getSupportedLanguages() {
     global $supported_languages;
     return $supported_languages;
+}
+
+function getDefaultLanguage() {
+    global $default_language;
+    return $default_language;
 }
 
 ?>

@@ -13,32 +13,32 @@ if(!$conn){
 #Page title:
 $pagetitle = "DECIDE";
 
-# Соцсети (настраиваются здесь)
+# Social Media (configure here)
 $social_links = array(
     array(
         'name' => 'Discord',
         'url' => 'https://discord.gg/kn4g2W9XAw',
         'icon' => 'fa-brands fa-discord'
     ),
-    // Пример: добавьте нужные сети ниже
-    // array('name' => 'VK', 'url' => 'https://vk.com/yourpage', 'icon' => 'fa-brands fa-vk'),
-    // array('name' => 'YouTube', 'url' => 'https://youtube.com/@your', 'icon' => 'fa-brands fa-youtube'),
+    // Example: add the required networks below
+// array('name' => 'VK', 'url' => 'https://vk.com/yourpage', 'icon' => 'fa-brands fa-vk'),
+// array('name' => 'YouTube', 'url' => 'https://youtube.com/@your', 'icon' => 'fa-brands fa-youtube'),
 );
 
-#Карта по умолчанию для таблицы лидеров, которая должна загружаться при регистрации на веб-сайте
+#Default map for the leaderboard that should load upon website registration
 $defaultmap = "surf_whiteout";
 
-// Разделы карты => true (включен) или false (выключен)
-#В списке карт создаются разделы карты для каждого режима (kz, surf, bunnyhop). Если он выключен, разделов не будет.
-#Это работает путем поиска карт, которые начинаются с префикса kz_, surf_, bh_,
-#поэтому, если карта не имеет его перед своим названием, она будет отображаться в категории без рубрики в конце списка карт.
+// Map sections => true (enabled) or false (disabled)
+#In the map list, map sections are created for each mode (kz, surf, bunnyhop). If disabled, there will be no sections.
+#This works by looking for maps that start with the kz_, surf_, bh_ prefixes,
+#so if a map doesn't have one before its name, it will be displayed in the uncategorized section at the end of the map list.
 $mapdivision = true; 
 
-#Какая вкладка с картой должна быть открыта по умолчанию - работает, только если $mapdivision = true
-#(может быть surf, bh, kz, other)
+#Which map tab should be open by default - works only if $mapdivision = true
+#(can be surf, bh, kz, other)
 $tabopened = "surf";
 
-// Сколько записей должно отображаться в таблице лидеров:
+// How many records should be displayed on the leaderboard:
 $limit = 100;
 
 #Footer description:
@@ -48,13 +48,13 @@ $footerdesc = '
 
 ';
 
-// Интеграция с GameQ - создает неполноценный список серверов на странице индекса.
-#GameQ (список серверов) true (включен) или false (выключен)
+// GameQ integration - creates a server list on the index page (limited functionality).
+#GameQ (server list) true (enabled) or false (disabled)
 $serverlist = true;
 
-#Список серверов:
-#Fakename может быть опущено или пусто, если вы этого не хотите.
-#IP должен быть числовым, а не доменным. Если вы предпочитаете отображать домен, а не реальный ip, используйте "fakeip".
+#Server list:
+#Fakename can be omitted or left empty if not needed.
+#IP must be numeric, not a domain. If you prefer to display a domain instead of the real IP, use "fakeip".
 $serverq = array(
     0 => array(
         'type' => 'csgo',
@@ -82,12 +82,18 @@ $serverq = array(
     )
 );
 
+// DEFAULT LANGUAGE
+// Available languages: 'ru', 'en'
+// Change the value below to set the default language for the site
+// Examples: $default_language = 'ru'; (Russian) or $default_language = 'en'; (English)
+$default_language = 'en';
+
 // API KEYS
-// Единая точка хранения ключей API, чтобы не бегать по файлам
+// Centralized API key storage to avoid scattering across files
 $api_keys = [
-    'steam' => '', // Steam Web API Key (оставьте пустым, если не используется)
-    // добавляйте другие ключи по мере необходимости, например: (скоро)
-    // 'faceit' => '',
+    'steam' => '', // Steam Web API Key (leave empty if not used)
+// add other keys as needed, for example:
+// 'faceit' => '', - coming soon
 ];
 
 function get_api_key($service) {
