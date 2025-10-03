@@ -56,21 +56,17 @@ $default_language = 'ru'; // 'ru' for Russian, 'en' for English
 - PHP 7.4+
 - MySQL 5.7+
 - Apache/Nginx (static caching recommended)
-- [SharpTimer by deafps](https://github.com/Letaryat/poor-sharptimer/tree/dev) with mysql enabled
+- [SharpTimer by Letaryat](https://github.com/Letaryat/poor-sharptimer/tree/dev) with mysql enabled
 
-<<<<<<< Updated upstream
-## Быстрый старт
-- Настройте БД и `$api_keys` в `core/config.php`
-- Загрузите проект на хостинг/локально
-- Откройте `index.php`
+## Quick start
+- Configure the database and `$api_keys` in `core/config.php`
+- Upload the project to the hosting/locally
 
-## TEST
-database_optimization.sql - Оптимизация базы данных. Использовать на свой страх и риск
-=======
 ## Quick Start
 - Configure database and `$api_keys` in `core/config.php`
 - Upload project to hosting/local environment
 
 ## TEST
 database_optimization.sql - Database optimization. Use at your own risk.
->>>>>>> Stashed changes
+
+- [sharptimer-web-panel](https://github.com/Letaryat/sharptimer-web-panel) The original version
