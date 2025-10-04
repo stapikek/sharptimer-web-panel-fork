@@ -15,7 +15,7 @@ Web panel for displaying player records of various game modes: SURF, KZ, BHOP an
 - [Database](#database)
 - [Multilingual Support](#multilingual-support)
 - [Development](#development)
-- [License](#license)
+- [Fork](#fork)
 
 ## Description
 
