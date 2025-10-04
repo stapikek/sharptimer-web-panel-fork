@@ -8,7 +8,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if(!$conn){
     die("connection failed" . mysqli_connect_error());
 }
-
 // PAGE CONFIG:
 #Page title:
 $pagetitle = "DECIDE";
@@ -88,7 +87,12 @@ $serverq = array(
 // Examples: $default_language = 'ru'; (Russian) or $default_language = 'en'; (English)
 $default_language = 'en';
 
-// API KEYS
+// DEBUG CONFIGURATION
+// Enable/disable debug mode
+// true = debug enabled, false = debug disabled
+$debug_enabled = false;
+
+// DEBUG API KEYS
 // Centralized API key storage to avoid scattering across files
 $api_keys = [
     'steam' => '', // Steam Web API Key (leave empty if not used)
@@ -99,6 +103,76 @@ $api_keys = [
 function get_api_key($service) {
     global $api_keys;
     return isset($api_keys[$service]) && $api_keys[$service] !== '' ? $api_keys[$service] : false;
+}
+
+// DEBUG FUNCTIONS
+// Debug logging functions for console output
+function debug_log($message, $type = 'log') {
+    global $debug_enabled;
+    
+    if (!$debug_enabled) {
+        return;
+    }
+    
+    // Prevent debug output for JavaScript files and AJAX requests
+    $request_uri = $_SERVER['REQUEST_URI'] ?? '';
+    $content_type = headers_sent() ? '' : (headers_list()['Content-Type'] ?? '');
+    
+    if (strpos($request_uri, '.js') !== false || 
+        strpos($content_type, 'application/javascript') !== false ||
+        strpos($content_type, 'application/json') !== false ||
+        (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')) {
+        return;
+    }
+    
+    $timestamp = date('H:i:s');
+    $formatted_message = "[$timestamp] DEBUG: " . $message;
+    
+    // Output to console
+    echo "<script>console." . $type . "('" . addslashes($formatted_message) . "');</script>\n";
+}
+
+function debug_info($message) {
+    debug_log($message, 'info');
+}
+
+function debug_warn($message) {
+    debug_log($message, 'warn');
+}
+
+function debug_error($message) {
+    debug_log($message, 'error');
+}
+
+function debug_sql($query, $params = []) {
+    global $debug_enabled;
+    
+    if (!$debug_enabled) {
+        return;
+    }
+    
+    $formatted_query = $query;
+    if (!empty($params)) {
+        $formatted_query .= " | Params: " . json_encode($params);
+    }
+    
+    debug_log("SQL: " . $formatted_query, 'info');
+}
+
+function debug_performance($start_time, $operation = 'Operation') {
+    global $debug_enabled;
+    
+    if (!$debug_enabled) {
+        return;
+    }
+    
+    $execution_time = microtime(true) - $start_time;
+    $memory_usage = memory_get_usage(true);
+    $memory_peak = memory_get_peak_usage(true);
+    
+    debug_log("$operation completed in " . round($execution_time * 1000, 2) . "ms | Memory: " . 
+              round($memory_usage / 1024 / 1024, 2) . "MB | Peak: " . 
+              round($memory_peak / 1024 / 1024, 2) . "MB", 'info');
 }
 
 ?>

@@ -77,11 +77,12 @@
     border-color: var(--border-color);
 }
 
+/* 
 .btn-secondary:hover {
     background: var(--hover);
     border-color: var(--accent-color);
     transform: translateY(-2px);
-}
+} */
 
 .error-suggestions {
     background: var(--bg-secondary);

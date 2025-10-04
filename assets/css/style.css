@@ -15,6 +15,35 @@
     --shadow-hover: 0 12px 48px rgba(245, 47, 47, 0.2);
 }
 
+/* Предотвращение мигания при загрузке */
+html {
+    transition: none !important;
+}
+
+html[data-theme] {
+    transition: all 0.1s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+/* Light theme variables */
+[data-theme="light"] {
+    --background: #fafbfc;
+    --secondary: #ffffff;
+    --striperow: #f8f9fa;
+    --stripe-hover: #f52f2f15;
+    --hover: #e63946;
+    --border-col: #e1e5e9;
+    --fontcolor: #2d3748;
+    --borderradius: 12px;
+    --primary-gradient: linear-gradient(135deg, #e63946 0%, #f56565 100%);
+    --secondary-gradient: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 32px rgba(230, 57, 70, 0.12);
+}
+
+
+
 ::-webkit-scrollbar {
     height: 6px;
     width: 3px;
@@ -43,6 +72,7 @@ html {
     scroll-behavior: smooth;
   }
 body{
+    display: flex;
     background: var(--background);
     background-image: 
         radial-gradient(circle at 20% 80%, rgba(245, 47, 47, 0.1) 0%, transparent 50%),
@@ -57,6 +87,16 @@ body{
     backdrop-filter: blur(10px);
     z-index: 1;
     position: relative;
+    transition: background 0.1s ease, color 0.1s ease;
+}
+
+/* Light theme background */
+[data-theme="light"] body {
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(230, 57, 70, 0.03) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(99, 137, 232, 0.02) 0%, transparent 60%),
+        radial-gradient(circle at 40% 40%, rgba(245, 101, 101, 0.02) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(250, 251, 252, 0.8) 0%, rgba(247, 250, 252, 0.9) 100%);
 }
 header{
     position: relative;
@@ -237,8 +277,8 @@ a:hover{
     cursor: pointer;
     background: rgba(245, 47, 47, 0.15);
     color: var(--hover);
-    transform: translateX(5px);
     border-left: 3px solid var(--hover);
+    border-right: 3px solid var(--hover);
     z-index: 32;
     position: relative;
 }
@@ -254,6 +294,7 @@ main{
     margin-top:15px;
     transition: 0.2s;
     z-index: 40;
+    flex: 1;
 }
 .wrapper{
     display: flex;
@@ -267,23 +308,31 @@ main{
     position: relative;
     display: flex;
     flex-flow: column;
-    border-radius: var(--borderradius);
+    border-radius: 16px;
     width: 70%;
-    transition: 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow);
+    overflow: hidden;
     z-index: 42;
 }
+
+.leaderboard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--glass-border);
+}
+
 .info{
-  position: sticky;
-  top: 0;
-  z-index: 99;
-  border-radius: var(--borderradius);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(245, 47, 47, 0.1) 100%);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--hover);
+    padding: 0 0 20px;
 }
 .boxshadows{
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -323,87 +372,163 @@ main{
 
 /* PLAYER ROWS IN LEADERBOARD */
 .info .row{
-    color:var(--hover);
+    color: var(--hover);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
 }
 
 .row{
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-columns: 60px 2fr 120px 1fr;
     align-items: center;
-    margin-top: 8px;
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: var(--borderradius);
-    padding: 18px;
-    animation-name: fade;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    transition: all 0.3s ease;
+    padding: 16px 20px;
     position: relative;
-    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 50;
 }
 
-.row::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s ease;
-    z-index: 51;
-}
-
-.row:hover::before {
-    left: 100%;
-    z-index: 52;
-}
-
 .row img{
-    width: 25px;
-    height: 25px;
-    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border);
     z-index: 53;
     position: relative;
 }
 
-.players .row span:nth-child(2){
-    display:flex;
+.players .row span{
+    display: flex;
     align-items: center;
     text-overflow: ellipsis;
     overflow: hidden;
     z-index: 54;
     position: relative;
+    font-weight: 500;
 }
+
 .players .row span:nth-child(2) img{
-    margin-right: 10px;
+    margin-right: 12px;
     z-index: 55;
     position: relative;
 }
 
-.row span:nth-child(5), .row span:nth-child(1){
+.row span:nth-child(1){
     text-align: center;
+    font-weight: 700;
+    color: var(--hover);
+    font-size: 16px;
+    z-index: 56;
+    position: relative;
+}
+
+.row span:nth-child(3){
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--hover);
+    /* text-align: center; */
+    z-index: 56;
+    position: relative;
+}
+
+.row span:nth-child(4){
+    /* text-align: center; */
+    color: var(--fontcolor);
+    opacity: 0.8;
+    font-size: 14px;
     z-index: 56;
     position: relative;
 }
 
 #stripped{
-    background-color: var(--striperow);
+    background: var(--striperow);
     z-index: 57;
     position: relative;
 }
-.players .row:hover, .stripped:hover{
+
+/* Единый ховер эффект для всех строк игроков */
+.players .row:hover,
+.players #stripped:hover {
     cursor: pointer;
-    background: rgba(245, 47, 47, 0.15);
-    transform: translateY(-2px);
+    background: var(--stripe-hover);
+    transform: translateX(8px) translateY(-2px);
     box-shadow: var(--shadow-hover);
-    border-color: rgba(245, 47, 47, 0.3);
+    border-color: var(--hover);
     z-index: 58;
     position: relative;
 }
+
+.players .row:hover span:nth-child(1),
+.players #stripped:hover span:nth-child(1) {
+    color: white;
+    transform: scale(1.1);
+}
+
+.players .row:hover span:nth-child(3),
+.players #stripped:hover span:nth-child(3) {
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Контейнер для игроков */
+.players {
+    padding: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 16px 16px;
+    min-height: 400px;
+}
+
+.players::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--glass-border) 50%, transparent 100%);
+    z-index: 1;
+}
+
+/* Улучшенные стили для пустого состояния */
+.players:empty::after {
+    content: 'Нет записей для отображения';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: var(--fontcolor);
+    opacity: 0.6;
+    font-style: italic;
+    font-size: 16px;
+}
+
+/* Анимация появления строк */
+@keyframes slideInRow {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.players .row {
+    animation: slideInRow 0.3s ease-out;
+}
+
+.players .row:nth-child(1) { animation-delay: 0.1s; }
+.players .row:nth-child(2) { animation-delay: 0.2s; }
+.players .row:nth-child(3) { animation-delay: 0.3s; }
+.players .row:nth-child(4) { animation-delay: 0.4s; }
+.players .row:nth-child(5) { animation-delay: 0.5s; }
 
 /* SERVERLIST */
 .server-container{
@@ -668,7 +793,6 @@ footer a{
     }
     .header-container{
         height: 100%;
-
     }
     .logo{
         flex-flow: column;
@@ -677,10 +801,55 @@ footer a{
         margin-left:0px !important;
         margin-top:10px;
     }
+    
+    /* Мобильная адаптация для leaderboard */
+    .wrapper {
+        flex-direction: column;
+        width: 95%;
+        gap: 20px;
+    }
+    
+    .leaderboard {
+        width: 100%;
+        order: 2;
+    }
+    
+    .map-list2 {
+        width: 100%;
+        order: 1;
+    }
+    
     .row {
-        grid-template-columns: 1fr 2fr 1fr 2fr;
-      }
-
+        grid-template-columns: 50px 2fr 100px 1fr;
+        padding: 12px 16px;
+        margin: 4px 0;
+    }
+    
+    .players {
+        padding: 15px;
+    }
+    
+    .info .row {
+        font-size: 10px;
+        padding: 15px 16px;
+    }
+    
+    .row span:nth-child(1) {
+        font-size: 14px;
+    }
+    
+    .row span:nth-child(3) {
+        font-size: 12px;
+    }
+    
+    .row span:nth-child(4) {
+        font-size: 12px;
+    }
+    
+    .row img {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 
@@ -689,7 +858,7 @@ footer a{
     z-index: 1000;
     position: relative;
 }
-#
+
 .social-links{
     list-style: none;
     display: flex;
@@ -811,6 +980,112 @@ input:focus{
     100%{
         transform: translateX(0px);
         opacity:100%;
+    }
+}
+
+/* Theme Switcher Button */
+.theme-switcher {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--secondary);
+    border: 1px solid var(--border-col);
+    border-radius: 50%;
+    color: var(--fontcolor);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    margin-left: 10px;
+}
+
+.theme-switcher:hover {
+    background: var(--stripe-hover);
+    border-color: var(--hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.theme-switcher i {
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.theme-switcher:hover i {
+    transform: rotate(180deg);
+}
+
+/* Light theme specific styles for theme switcher */
+[data-theme="light"] .theme-switcher {
+    background: var(--secondary);
+    border: 1px solid var(--border-col);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .theme-switcher:hover {
+    background: var(--stripe-hover);
+    border-color: var(--hover);
+    box-shadow: 0 4px 16px rgba(230, 57, 70, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Light theme improvements */
+[data-theme="light"] .header-container {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--glass-border);
+}
+
+[data-theme="light"] .header-container:hover {
+    box-shadow: 0 8px 32px rgba(230, 57, 70, 0.12);
+}
+
+[data-theme="light"] .leaderboard {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--glass-border);
+}
+
+[data-theme="light"] .leaderboard:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .info {
+    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(230, 57, 70, 0.05) 100%);
+    border-bottom: 2px solid var(--hover);
+}
+
+[data-theme="light"] .row {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--glass-border);
+}
+
+[data-theme="light"] .players .row:hover,
+[data-theme="light"] .players #stripped:hover {
+    box-shadow: 0 4px 16px rgba(230, 57, 70, 0.1);
+    border-color: var(--hover);
+}
+
+[data-theme="light"] .server {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--glass-border);
+}
+
+[data-theme="light"] footer .wrapper {
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--glass-border);
+}
+
+/* Mobile theme switcher */
+@media (max-width: 1024px) {
+    .theme-switcher {
+        width: 36px;
+        height: 36px;
+        margin-left: 8px;
+    }
+    
+    .theme-switcher i {
+        font-size: 14px;
     }
 }
 

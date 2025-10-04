@@ -91,13 +91,11 @@ if ($current_lang == 'ru') {
     ];
 }
 
-$show_back_link = true;
-$back_url = getHomePath();
 ?>
 <?php
 include("../core/includes/header.php");
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_path; ?>assets/css/rules.css?version=1&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="/assets/css/rules.css?version=1&t=<?php echo time(); ?>">
 
     <div class="rules-container">
         

@@ -9,7 +9,7 @@ require_once("../steam/steam_avatar.php");
 $steamid = getSafeSteamID($conn);
 
 if (!$steamid) {
-    header("Location: " . getHomePath());
+    header("Location: ../index.php");
     exit();
 }
 
@@ -19,7 +19,7 @@ $stmt->execute();
 $result_player = $stmt->get_result();
 
 if ($result_player->num_rows === 0) {
-    header("Location: " . getHomePath());
+    header("Location: ../index.php");
     exit();
 }
 
@@ -29,8 +29,6 @@ $avatar_data = getPlayerAvatar($steamid);
 
 $page_title = $player_data['PlayerName'] . " - " . t('site_title');
 $page_description = t('player_profile') . " " . $player_data['PlayerName'];
-$show_back_link = true;
-$back_url = getHomePath();
 
 $steam_profile = getSteamProfile($steamid);
 $steam_status = getSteamStatus($steamid);
@@ -87,7 +85,7 @@ function formatTimeFromTicks($ticks) {
 <?php
 include("../core/includes/header.php");
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_path; ?>assets/css/profile.css?version=1&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="/assets/css/profile.css?version=1&t=<?php echo time(); ?>">
 
     <div class="profile-container">
         

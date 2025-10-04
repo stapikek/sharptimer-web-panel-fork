@@ -8,7 +8,7 @@ $steamid = getSafeSteamID($conn);
 $mapname = getSafeMapName($conn);
 
 if (!$steamid || !$mapname) {
-    header("Location: " . getHomePath());
+    header("Location: ../index.php");
     exit();
 }
 
@@ -18,7 +18,7 @@ $stmt_player->execute();
 $result_player = $stmt_player->get_result();
 
 if ($result_player->num_rows === 0) {
-    header("Location: " . getHomePath());
+    header("Location: ../index.php");
     exit();
 }
 
@@ -26,8 +26,6 @@ $player_data = $result_player->fetch_assoc();
 
 $page_title = $player_data['PlayerName'] . " - " . $mapname . " - " . t('site_title');
 $page_description = t('map_records') . " " . $player_data['PlayerName'] . " " . t('map') . " " . $mapname;
-$show_back_link = true;
-$back_url = getProfilePath($steamid);
 
 $stmt_records = $conn->prepare("SELECT `FormattedTime`, `TimerTicks`, `UnixStamp` 
     FROM PlayerRecords 
@@ -83,7 +81,7 @@ function formatDate($unix_timestamp) {
 <?php
 include("../core/includes/header.php");
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_path; ?>assets/css/map-records.css?version=1&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="/assets/css/map-records.css?version=1&t=<?php echo time(); ?>">
 
     <div class="map-records-container">
         

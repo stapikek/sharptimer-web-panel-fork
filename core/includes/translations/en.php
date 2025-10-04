@@ -55,6 +55,17 @@ return [
     
     // Map records
     'map_records' => 'Map Records',
+    
+    // Theme switcher
+    'theme_switch' => 'Toggle theme',
+    'theme_light' => 'Light theme',
+    'theme_dark' => 'Dark theme',
+    
+    // Records
+    'records_page_title' => 'Records',
+    'showing_all_records' => 'Showing all records from all maps',
+    'select_map' => 'Select map',
+    'show_records' => 'Show records',
     'total_attempts' => 'Total Attempts',
     'first_attempt' => 'First Attempt',
     'all_records_on_map' => 'All Records on Map',

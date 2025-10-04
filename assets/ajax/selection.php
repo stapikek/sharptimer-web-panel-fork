@@ -6,12 +6,17 @@ require_once(__DIR__ . "/../../core/includes/security.php");
 $i = 0;
 $id = getSafeMapID($conn);
 
+// Debug: Map selection
+debug_log("Map selection called with map: " . ($id ?: 'invalid'));
+
 if (!$id) {
+    debug_warn("Invalid map ID provided");
     echo "<div id='strangerdanger' class='row'>" . t('invalid_map') . "</div>";
     exit();
 }
 
 $stmt = $conn->prepare("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?");
+debug_sql("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?", [$id, $limit]);
 $stmt->bind_param("si", $id, $limit);
 $stmt->execute();
 $result = $stmt->get_result();

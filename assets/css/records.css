@@ -4,11 +4,62 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background: var(--bg-primary);
+    /* background: var(--background); */
     min-height: calc(100vh - 200px);
     position: relative;
     z-index: 1;
 }
+
+/* Light theme improvements for records page */
+[data-theme="light"] .records-container {
+    background: var(--background);
+}
+
+[data-theme="light"] .filter-section {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--glass-border);
+}
+
+[data-theme="light"] .records-section {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--glass-border);
+}
+
+[data-theme="light"] .table-header {
+    background: linear-gradient(135deg, var(--secondary) 0%, rgba(230, 57, 70, 0.02) 100%);
+    border-bottom: 2px solid var(--hover);
+    color: var(--fontcolor);
+    font-weight: 700;
+}
+
+[data-theme="light"] .table-row {
+    border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .table-row:hover {
+    background: var(--stripe-hover);
+    box-shadow: 0 2px 8px rgba(230, 57, 70, 0.1);
+    transform: translateX(5px);
+}
+
+[data-theme="light"] .map-dropdown {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 2px solid var(--hover);
+}
+
+[data-theme="light"] .map-dropdown:focus {
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+}
+
+[data-theme="light"] .show-button {
+    box-shadow: 0 2px 8px rgba(230, 57, 70, 0.2);
+}
+
+[data-theme="light"] .show-button:hover {
+    box-shadow: 0 4px 16px rgba(230, 57, 70, 0.3);
+}
+
 
 .records-header {
     text-align: center;
@@ -16,7 +67,7 @@
 }
 
 .records-header h1 {
-    color: var(--text-primary);
+    color: var(--fontcolor);
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
@@ -25,16 +76,17 @@
 
 /* Секция фильтров */
 .filter-section {
-    background: rgba(26, 26, 26, 0.8);
+    background: var(--glass-bg);
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--glass-border);
     position: relative;
     z-index: 2;
 }
 
+/* Стили для формы фильтров */
 .filter-form {
     display: flex;
     align-items: center;
@@ -42,6 +94,7 @@
     flex-wrap: wrap;
     position: relative;
     z-index: 3;
+    justify-content: space-between;
 }
 
 .filter-group {
@@ -51,10 +104,11 @@
 }
 
 .filter-group label {
-    color: var(--text-primary);
+    color: var(--fontcolor);
     font-weight: 600;
     white-space: nowrap;
 }
+
 
 .select-wrapper {
     position: relative;
@@ -70,7 +124,8 @@
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-secondary);
+    color: var(--fontcolor);
+    opacity: 0.7;
     pointer-events: none;
     transition: color 0.3s ease;
     z-index: 5;
@@ -84,8 +139,8 @@
     padding: 12px 44px 12px 14px;
     border: 2px solid var(--hover);
     border-radius: 10px;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
+    background: var(--secondary);
+    color: var(--fontcolor);
     font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
@@ -96,34 +151,35 @@
 }
 
 .map-dropdown:hover {
-    border-color: var(--accent-color);
+    border-color: var(--hover);
 }
 
 .map-dropdown:focus {
     outline: none;
-    border-color: var(--accent-color);
+    border-color: var(--hover);
     box-shadow: 0 0 0 4px rgba(245, 47, 47, 0.12);
-    background: var(--bg-primary);
+    background: var(--background);
 }
 
 .map-dropdown option {
-    background: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
+    background: var(--secondary) !important;
+    color: var(--fontcolor) !important;
 }
 
 .map-dropdown option:disabled {
-    color: var(--text-secondary) !important;
+    color: var(--fontcolor) !important;
+    opacity: 0.5;
 }
 
 .map-dropdown option:checked,
 .map-dropdown option:hover {
-    background: var(--bg-tertiary) !important;
-    color: var(--text-primary) !important;
+    background: var(--stripe-hover) !important;
+    color: var(--fontcolor) !important;
 }
 
 .show-button {
     padding: 10px 20px;
-    background: var(--accent-color);
+    background: var(--hover);
     color: white;
     border: none;
     border-radius: 8px;
@@ -135,21 +191,23 @@
     gap: 5px;
     position: relative;
     z-index: 3;
+    margin-left: auto;
 }
 
 .show-button:hover {
-    background: var(--accent-hover);
+    background: var(--hover);
+    opacity: 0.9;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(245, 47, 47, 0.3);
 }
 
 /* Секция рекордов */
 .records-section {
-    background: rgba(26, 26, 26, 0.8);
+    background: var(--glass-bg);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--glass-border);
     position: relative;
     z-index: 1;
 }
@@ -165,10 +223,10 @@
     grid-template-columns: 80px 1fr 1fr 150px;
     gap: 15px;
     padding: 15px 20px;
-    background: var(--bg-secondary);
-    border-bottom: 2px solid var(--border-color);
+    background: var(--secondary);
+    border-bottom: 2px solid var(--glass-border);
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--fontcolor);
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -182,15 +240,15 @@
     grid-template-columns: 80px 1fr 1fr 150px;
     gap: 15px;
     padding: 15px 20px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--glass-border);
     transition: all 0.2s ease;
-    color: var(--text-secondary);
+    color: var(--fontcolor);
     position: relative;
     z-index: 2;
 }
 
 .table-row:hover {
-    background: var(--bg-tertiary);
+    background: var(--stripe-hover);
     transform: translateX(5px);
 }
 
@@ -202,42 +260,38 @@
     display: flex;
     align-items: center;
     font-weight: 700;
-    color: var(--accent-color);
+    color: var(--hover);
     font-size: 18px;
 }
 
 .col-player a {
-    color: var(--text-primary);
+    color: var(--fontcolor);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .col-player a:hover {
-    color: var(--accent-color);
+    color: var(--hover);
 }
 
-.col-map a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.col-map a:hover {
-    color: var(--accent-color);
+.col-map {
+    color: var(--fontcolor);
+    opacity: 0.8;
 }
 
 .col-time {
     font-family: 'Courier New', monospace;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--fontcolor);
 }
 
 /* Сообщение об отсутствии рекордов */
 .no-records {
     text-align: center;
     padding: 60px 20px;
-    color: var(--text-secondary);
+    color: var(--fontcolor);
+    opacity: 0.8;
     position: relative;
     z-index: 2;
 }
@@ -251,14 +305,15 @@
 .records-note {
     margin-top: 20px;
     text-align: center;
-    color: var(--text-secondary);
+    color: var(--fontcolor);
+    opacity: 0.8;
     font-size: 14px;
     position: relative;
     z-index: 2;
 }
 
 .records-note i {
-    color: var(--accent-color);
+    color: var(--hover);
     margin-right: 5px;
 }
 

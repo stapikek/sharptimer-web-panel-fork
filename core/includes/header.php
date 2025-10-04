@@ -5,9 +5,15 @@ require_once(__DIR__ . "/path_utils.php");
 require_once(__DIR__ . "/session.php");
 $seo_title = null; $seo_description = null; $seo_keywords = null; $seo_author = null; $seo_og_image = null; $seo_theme_color = null;
 require_once(__DIR__ . "/../ceo.php");
-$base_path = getBasePath();
 
-// Авторизация уже проверяется через функции в session.php
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'] ?? '';
+$base_url = $host ? ($scheme . '://' . $host) : '';
+
+// Debug: Page load start
+$debug_start_time = microtime(true);
+debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -40,13 +46,13 @@ $base_path = getBasePath();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $base_path; ?>assets/css/style.css?version=17&t=<?php echo time(); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo $base_path; ?>assets/css/header.css?version=1&t=<?php echo time(); ?>">
-    <link href="<?php echo $base_path; ?>assets/dist/hamburgers.css?version=2&t=<?php echo time(); ?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=17&t=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="/assets/css/header.css?version=1&t=<?php echo time(); ?>">
+    <link href="/assets/dist/hamburgers.css?version=2&t=<?php echo time(); ?>" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $base_path; ?>assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo htmlspecialchars($seo_title); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($seo_description); ?>">
@@ -57,6 +63,15 @@ $base_path = getBasePath();
     <meta property="og:footer" content="SharpTimer">
     <meta name="theme-color" content="<?php echo htmlspecialchars($seo_theme_color); ?>">
     <title><?php echo htmlspecialchars($seo_title); ?></title>
+    
+    <!-- Предварительная загрузка темы для предотвращения мигания -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const theme = savedTheme || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 
 <body>
@@ -66,38 +81,33 @@ $base_path = getBasePath();
             <div class="unified-header-content">
                 <div class="header-content">
                     <div class="logo-section">
-                        <h1><a href="<?php echo $base_path; ?>index.php"><?php echo $pagetitle; ?></a></h1>
+                        <h1><a href="<?php echo $base_url; ?>/index.php"><?php echo $pagetitle; ?></a></h1>
                     </div>
+                    
+                    <div class="search-section">
+                        <div class="search-box">
+                            <i class="fa-solid fa-search"></i>
+                            <input id="search" type="search" placeholder="<?php echo t('search_placeholder'); ?>">
+                        </div>
+                    </div>
+                    
                     <div class="navigation-buttons">
-                        <a href="<?php echo getRulesPath(); ?>" class="nav-button">
+                        <a href="<?php echo $base_url; ?>/pages/rules.php" class="nav-button">
                             <i class="fa-solid fa-book"></i>
                             <?php echo t('nav_rules'); ?>
                         </a>
                         
-                        <a href="<?php echo $base_path; ?>pages/records.php" class="nav-button">
+                        <a href="<?php echo $base_url; ?>/pages/records.php" class="nav-button">
                             <i class="fa-solid fa-trophy"></i>
                             <?php echo t('nav_records'); ?>
                         </a>
                         
-                        <!-- Авторизация Steam удалена -->
-                        
                         <?php if (isset($show_profile_link) && $show_profile_link): ?>
-                        <a href="<?php echo $base_path; ?>pages/profile.php?steamid=<?php echo $steamid; ?>" class="nav-button">
+                        <a href="<?php echo $base_url; ?>/pages/profile.php?steamid=<?php echo $steamid; ?>" class="nav-button">
                             <i class="fa-solid fa-user-circle"></i>
                             <?php echo t('nav_profile'); ?>
                         </a>
                         <?php endif; ?>
-                        <?php if (isset($show_back_link) && $show_back_link): ?>
-                        <a href="<?php echo $back_url; ?>" class="nav-button">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            <?php echo t('back'); ?>
-                        </a>
-                        <?php endif; ?>
-                        
-                        <!-- Search Button -->
-                        <button class="search-toggle-button" onclick="toggleSearch()">
-                            <i class="fa-solid fa-search"></i>
-                        </button>
                         
                         <!-- Language Switcher -->
                         <div class="language-switcher">
@@ -107,29 +117,34 @@ $base_path = getBasePath();
                                 <i class="fa-solid fa-chevron-down"></i>
                             </button>
                             <div class="language-dropdown" id="languageDropdown">
-                                <a href="<?php echo getLangUrl('ru'); ?>" class="language-option <?php echo getCurrentLanguage() == 'ru' ? 'active' : ''; ?>">
+                                <a href="<?php echo $base_url . getLangUrl('ru'); ?>" class="language-option <?php echo getCurrentLanguage() == 'ru' ? 'active' : ''; ?>">
                                     <i class="fa-solid fa-flag"></i>
                                     <?php echo t('language_russian'); ?>
                                 </a>
-                                <a href="<?php echo getLangUrl('en'); ?>" class="language-option <?php echo getCurrentLanguage() == 'en' ? 'active' : ''; ?>">
+                                <a href="<?php echo $base_url . getLangUrl('en'); ?>" class="language-option <?php echo getCurrentLanguage() == 'en' ? 'active' : ''; ?>">
                                     <i class="fa-solid fa-flag"></i>
                                     <?php echo t('language_english'); ?>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="search-container" id="searchContainer">
-                    <div class="search-box">
-                        <i class="fa-solid fa-search"></i>
-                        <input id="search" type="search" placeholder="<?php echo t('search_placeholder'); ?>">
+                        
+                        <!-- Theme Switcher -->
+                        <button class="theme-switcher" onclick="toggleTheme()" title="<?php echo t('theme_switch'); ?>">
+                            <i class="fa-solid fa-moon" id="theme-icon"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <script src="<?php echo $base_path; ?>assets/js/site-inline.js?version=1&t=<?php echo time(); ?>" defer></script>
-    <script src="<?php echo $base_path; ?>assets/js/main.js?version=1&t=<?php echo time(); ?>" defer></script>
-    <script src="<?php echo $base_path; ?>assets/js/header-inline.js?version=1&t=<?php echo time(); ?>" defer></script>
+    <script src="/assets/js/site-inline.js?version=1&t=<?php echo time(); ?>" defer></script>
+    <script src="/assets/js/main.js?version=1&t=<?php echo time(); ?>" defer></script>
+    
+    <?php
+    // Debug: Page load completion
+    if (isset($debug_start_time)) {
+        debug_performance($debug_start_time, "Page load");
+        debug_log("Header loaded successfully");
+    }
+    ?>

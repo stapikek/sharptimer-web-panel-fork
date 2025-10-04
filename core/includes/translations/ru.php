@@ -55,6 +55,17 @@ return [
     
     // Рекорды карты
     'map_records' => 'Рекорды карты',
+    
+    // Переключатель темы
+    'theme_switch' => 'Переключить тему',
+    'theme_light' => 'Светлая тема',
+    'theme_dark' => 'Темная тема',
+    
+    // Рекорды
+    'records_page_title' => 'Рекорды',
+    'showing_all_records' => 'Показываются все рекорды со всех карт',
+    'select_map' => 'Выберите карту',
+    'show_records' => 'Показать рекорды',
     'total_attempts' => 'Всего попыток',
     'first_attempt' => 'Первая попытка',
     'all_records_on_map' => 'Все рекорды на карте',

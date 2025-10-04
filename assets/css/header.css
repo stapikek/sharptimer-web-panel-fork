@@ -40,43 +40,12 @@
     gap: 20px;
 }
 
-.search-container {
-    display: none;
-    justify-content: center;
-    border-top: 1px solid var(--glass-border);
-    padding-top: 20px;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-}
-
-.search-container.show {
+.search-section {
+    flex: 1;
     display: flex;
-    animation: slideInSearch 0.3s ease forwards;
-}
-
-@keyframes slideInSearch {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Search Toggle Button specific styles */
-.search-toggle-button {
     justify-content: center;
-    font-size: 1em;
-    width: 44px;
-}
-
-.search-toggle-button.active {
-    background: var(--hover);
-    color: white;
-    border-color: var(--hover);
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .search-box {
@@ -149,8 +118,7 @@
 
 /* Common styles for all navigation buttons */
 .nav-button,
-.language-button,
-.search-toggle-button {
+.language-button {
     height: 44px;
     min-height: 44px;
     box-sizing: border-box;
@@ -167,8 +135,7 @@
 }
 
 .nav-button:hover,
-.language-button:hover,
-.search-toggle-button:hover {
+.language-button:hover {
     background: var(--hover);
     color: white;
     border-color: var(--hover);
@@ -246,17 +213,6 @@
     box-shadow: 0 4px 15px rgba(102, 192, 244, 0.3);
 }
 
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .navigation-buttons {
-        justify-content: center;
-    }
-}
-
 /* Mobile styles for header layout */
 @media (max-width: 768px) {
     .header-layout {
@@ -272,8 +228,25 @@
         gap: 15px;
     }
     
-    .search-container {
-        padding-top: 15px;
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .search-section {
+        order: 2;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .logo-section {
+        order: 1;
+    }
+    
+    .navigation-buttons {
+        order: 3;
+        justify-content: center;
     }
     
     .search-box {
@@ -282,18 +255,9 @@
     
     /* Mobile button heights */
     .nav-button,
-    .language-button,
-    .search-toggle-button {
+    .language-button {
         height: 40px;
         min-height: 40px;
-    }
-    
-    .search-toggle-button {
-        width: 40px;
-    }
-    
-    .nav-button,
-    .language-button {
         padding: 8px 12px;
     }
 }

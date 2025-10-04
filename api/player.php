@@ -16,7 +16,11 @@ require_once(__DIR__ . "/../core/includes/security.php");
 
 $steamid = getSafeSteamID($conn);
 
+// Debug: API request
+debug_log("API player.php called with SteamID: " . ($steamid ?: 'invalid'));
+
 if (!$steamid) {
+    debug_error("Invalid SteamID provided");
     http_response_code(400);
     echo json_encode(['error' => 'Invalid SteamID']);
     exit();
@@ -145,4 +149,5 @@ function formatTimeFromTicks($ticks) {
         return sprintf("%.3f", $seconds);
     }
 }
+
 ?>

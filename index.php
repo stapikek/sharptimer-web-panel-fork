@@ -5,6 +5,7 @@
  * @link https://steamcommunity.com/id/stapi1337/
  * @link https://github.com/stapikek
  */
+
 require_once("core/config.php");
 require_once('assets/GameQ/Autoloader.php');
 require_once('core/includes/locale.php');
@@ -13,6 +14,9 @@ require_once('core/includes/security.php');
 $page_title = t('site_title');
 $page_description = t('search_placeholder');
 $page_keywords = 'surf, csgo, counter-strike, records, leaderboard, surf maps, surf servers';
+
+// Debug: Index page start
+debug_log("Index page loaded");
 ?>
 <?php
 include("core/includes/header.php");
@@ -126,17 +130,29 @@ include("core/includes/header.php");
 
                         <?php
                         
-                        $sqlsurf = "SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'SURF%' ORDER BY MapName ASC ";
-                        $resultsurf = $conn->query($sqlsurf);
+                        // SURF карты
+                        $stmt_surf = $conn->prepare("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'SURF%' ORDER BY MapName ASC");
+                        debug_sql("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'SURF%' ORDER BY MapName ASC");
+                        $stmt_surf->execute();
+                        $resultsurf = $stmt_surf->get_result();
                         
-                        $sqlkz = "SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'KZ%' ORDER BY MapName ASC ";
-                        $resultkz = $conn->query($sqlkz);
+                        // KZ карты
+                        $stmt_kz = $conn->prepare("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'KZ%' ORDER BY MapName ASC");
+                        debug_sql("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'KZ%' ORDER BY MapName ASC");
+                        $stmt_kz->execute();
+                        $resultkz = $stmt_kz->get_result();
                         
-                        $sqlbh = "SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'BHOP%' ORDER BY MapName ASC ";
-                        $resultbh = $conn->query($sqlbh);
+                        // BHOP карты
+                        $stmt_bh = $conn->prepare("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'BHOP%' ORDER BY MapName ASC");
+                        debug_sql("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName LIKE 'BHOP%' ORDER BY MapName ASC");
+                        $stmt_bh->execute();
+                        $resultbh = $stmt_bh->get_result();
                         
-                        $sqlother = "SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName NOT LIKE 'BHOP%' AND MapName NOT LIKE 'SURF%' AND MapName NOT LIKE 'KZ%' ORDER BY MapName ASC ";
-                        $resultother = $conn->query($sqlother);
+                        // Другие карты
+                        $stmt_other = $conn->prepare("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName NOT LIKE 'BHOP%' AND MapName NOT LIKE 'SURF%' AND MapName NOT LIKE 'KZ%' ORDER BY MapName ASC");
+                        debug_sql("SELECT DISTINCT MapName FROM `PlayerRecords` WHERE MapName NOT LIKE 'BHOP%' AND MapName NOT LIKE 'SURF%' AND MapName NOT LIKE 'KZ%' ORDER BY MapName ASC");
+                        $stmt_other->execute();
+                        $resultother = $stmt_other->get_result();
                         if ($mapdivision === true) {
                             if ($resultsurf->num_rows > 0) {
                                 echo '<li class="tablink';
@@ -198,7 +214,7 @@ include("core/includes/header.php");
                                     echo '">';
                                 }
                                 while ($row = $resultsurf->fetch_assoc()) {
-                                    echo '<li class="selector" data-id="' . $row['MapName'] . '">' . $row['MapName'] . '</li>';
+                                    echo '<li class="selector" data-id="' . htmlspecialchars($row['MapName']) . '">' . htmlspecialchars($row['MapName']) . '</li>';
                                 } ?>
 
                                 <?php
@@ -212,7 +228,7 @@ include("core/includes/header.php");
                                     echo '">';
                                 }
                                 while ($row = $resultbh->fetch_assoc()) {
-                                    echo '<li class="selector" data-id="' . $row['MapName'] . '">' . $row['MapName'] . '</li>';
+                                    echo '<li class="selector" data-id="' . htmlspecialchars($row['MapName']) . '">' . htmlspecialchars($row['MapName']) . '</li>';
                                 }
                                 echo '</div>';
                             }
@@ -224,7 +240,7 @@ include("core/includes/header.php");
                                     echo '">';
                                 }
                                 while ($row = $resultkz->fetch_assoc()) {
-                                    echo '<li class="selector" data-id="' . $row['MapName'] . '">' . $row['MapName'] . '</li>';
+                                    echo '<li class="selector" data-id="' . htmlspecialchars($row['MapName']) . '">' . htmlspecialchars($row['MapName']) . '</li>';
                                 }
                                 echo '</div>';
                             }
@@ -236,18 +252,19 @@ include("core/includes/header.php");
                                     echo '">';
                                 }
                                 while ($row = $resultother->fetch_assoc()) {
-                                    echo '<li class="selector" data-id="' . $row['MapName'] . '">' . $row['MapName'] . '</li>';
+                                    echo '<li class="selector" data-id="' . htmlspecialchars($row['MapName']) . '">' . htmlspecialchars($row['MapName']) . '</li>';
                                 }
                                 echo '</div>';
                             }
                         } else {
-                            $sql = "SELECT DISTINCT MapName FROM `PlayerRecords` ORDER BY MapName ASC";
-                            $result = $conn->query($sql);
+                            $stmt_all = $conn->prepare("SELECT DISTINCT MapName FROM `PlayerRecords` ORDER BY MapName ASC");
+                            debug_sql("SELECT DISTINCT MapName FROM `PlayerRecords` ORDER BY MapName ASC");
+                            $stmt_all->execute();
+                            $result = $stmt_all->get_result();
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    echo '<li class="selector" data-id="' . $row['MapName'] . '">' . $row['MapName'] . '</li>';
+                                    echo '<li class="selector" data-id="' . htmlspecialchars($row['MapName']) . '">' . htmlspecialchars($row['MapName']) . '</li>';
                                 }
-
                             }
                         }
 
@@ -277,6 +294,7 @@ if ($map_param && mapExists($conn, $map_param)) {
 }
                     
                     $stmt = $conn->prepare("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?");
+                    debug_sql("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?", [$selected_map, $limit]);
                     $stmt->bind_param("si", $selected_map, $limit);
                     $stmt->execute();
                     $result = $stmt->get_result();
@@ -331,8 +349,8 @@ if ($map_param && mapExists($conn, $map_param)) {
 
     </footer>
     
-    <script src="assets/js/main.js" defer></script>
-    <script src="assets/js/index-inline.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
+    <script src="/assets/js/index-inline.js" defer></script>
 </body>
 
 </html>

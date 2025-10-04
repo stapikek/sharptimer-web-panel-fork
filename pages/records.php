@@ -7,13 +7,13 @@ require_once("../core/includes/path_utils.php");
 $page_title = t('records_page_title') . " - " . t('site_title');
 $page_description = t('records_page_title');
 
-// Получаем выбранную карту из GET параметра
-$selected_map = isset($_GET['map']) ? $_GET['map'] : '';
+// Получаем выбранную карту из GET параметра, по умолчанию показываем все карты
+$selected_map = isset($_GET['map']) ? $_GET['map'] : 'all';
 
 // Проверяем и санитизируем выбранную карту
 // Исключаем бонусные карты
 if ($selected_map && stripos($selected_map, '_bonus') !== false) {
-    $selected_map = '';
+    $selected_map = 'all';
 }
 
 if ($selected_map && $selected_map !== 'all') {
@@ -25,13 +25,14 @@ if ($selected_map && $selected_map !== 'all') {
     $check_data = $result_check->fetch_assoc();
     
     if ($check_data['count'] == 0) {
-        $selected_map = ''; // Сбрасываем если карта не найдена
+        $selected_map = 'all'; // Сбрасываем если карта не найдена
     }
 }
 
 // Получаем список всех карт для выпадающего меню (исключая бонусные)
-$sql_maps = "SELECT DISTINCT MapName FROM PlayerRecords WHERE MapName NOT LIKE '%\\_bonus%' ORDER BY MapName ASC";
-$result_maps = $conn->query($sql_maps);
+$stmt_maps = $conn->prepare("SELECT DISTINCT MapName FROM PlayerRecords WHERE MapName NOT LIKE '%\\_bonus%' ORDER BY MapName ASC");
+$stmt_maps->execute();
+$result_maps = $stmt_maps->get_result();
 $maps = [];
 if ($result_maps->num_rows > 0) {
     while ($row = $result_maps->fetch_assoc()) {
@@ -118,8 +119,8 @@ if (isset($stmt_records)) {
 }
 ?>
 <?php include("../core/includes/header.php"); ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_path; ?>assets/css/style.css?version=17&t=<?php echo time(); ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_path; ?>assets/css/records.css?version=1&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=17&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="/assets/css/records.css?version=1&t=<?php echo time(); ?>">
 
     <div class="records-container">
         <div class="records-header">
@@ -132,8 +133,7 @@ if (isset($stmt_records)) {
                     <label for="map-select"><?php echo t('map'); ?>:</label>
                     <div class="select-wrapper">
                         <select id="map-select" name="map" class="map-dropdown">
-                            <option value=""><?php echo t('select_map'); ?></option>
-                            <option value="all" <?php echo ($selected_map === 'all') ? 'selected' : ''; ?>>
+                            <option value="all" <?php echo ($selected_map === 'all' || $selected_map === '') ? 'selected' : ''; ?>>
                                 <?php echo t('all_maps'); ?>
                             </option>
                             <?php foreach ($maps as $map): ?>
@@ -170,9 +170,7 @@ if (isset($stmt_records)) {
                                 </a>
                             </div>
                             <div class="col-map">
-                                <a href="map_records.php?map=<?php echo urlencode($record['MapName']); ?>">
-                                    <?php echo htmlspecialchars($record['MapName']); ?>
-                                </a>
+                                <?php echo htmlspecialchars($record['MapName']); ?>
                             </div>
                             <div class="col-time"><?php echo htmlspecialchars($record['FormattedTime']); ?></div>
                         </div>

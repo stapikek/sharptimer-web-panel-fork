@@ -8,7 +8,7 @@ function isValidMapName($mapname) {
 }
 
 function isValidSearchQuery($query) {
-    return !preg_match('/[<>"\']/', $query) && strlen($query) <= 100;
+    return !preg_match('/[<>"\']/', $query) && strlen($query) <= 100 && !preg_match('/[;\\\'\"]/', $query);
 }
 
 function getSafeSteamID($conn) {
@@ -87,5 +87,17 @@ function playerExists($conn, $steamid) {
     $stmt->close();
     
     return $row['count'] > 0;
+}
+
+function sanitizeInput($input) {
+    return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
+}
+
+function validateInteger($value) {
+    return filter_var($value, FILTER_VALIDATE_INT) !== false;
+}
+
+function validatePositiveInteger($value) {
+    return validateInteger($value) && $value > 0;
 }
 ?>
