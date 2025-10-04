@@ -49,6 +49,7 @@ SharpTimer Web Panel Fork is a modern web panel for displaying and managing play
   - json
   - curl
   - mbstring
+- [SharpTimer by Letaryat](https://github.com/Letaryat/poor-sharptimer/tree/dev) with mysql enabled
 
 ### Recommended Settings
 - **PHP Memory**: minimum 128MB
