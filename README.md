@@ -318,7 +318,7 @@ echo t('player'); // Will output "Player" or "Игрок"
 
 ## Fork
 
-This project is a fork of the original SharpTimer Web Panel.
+This project is a fork of the original [SharpTimer Web Panel](https://github.com/Letaryat/sharptimer-web-panel).
 
 ---
 
