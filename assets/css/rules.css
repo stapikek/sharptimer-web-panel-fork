@@ -8,6 +8,72 @@
     transform: translateZ(0);
 }
 
+/* Mobile styles for rules page */
+@media (max-width: 768px) {
+    .rules-container {
+        padding: 10px;
+    }
+    
+    .rules-header {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .rules-header h1 {
+        font-size: 2em;
+    }
+    
+    .rule-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .rule-section h2 {
+        font-size: 1.3em;
+    }
+    
+    .rule-section p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .rule-section ul {
+        padding-left: 20px;
+    }
+    
+    .rule-section li {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .rules-container {
+        padding: 5px;
+    }
+    
+    .rules-header {
+        padding: 12px;
+    }
+    
+    .rules-header h1 {
+        font-size: 1.5em;
+    }
+    
+    .rule-section {
+        padding: 12px;
+    }
+    
+    .rule-section h2 {
+        font-size: 1.1em;
+    }
+    
+    .rule-section p,
+    .rule-section li {
+        font-size: 13px;
+    }
+}
+
 .rules-header {
     text-align: center;
     margin-bottom: 30px;

@@ -10,6 +10,80 @@
     z-index: 1;
 }
 
+/* Mobile styles for records page */
+@media (max-width: 768px) {
+    .records-container {
+        padding: 10px;
+        min-height: calc(100vh - 150px);
+    }
+    
+    .filter-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .filter-section h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .map-dropdown {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .records-section {
+        padding: 15px;
+    }
+    
+    .records-section h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .table-header {
+        display: grid;
+        grid-template-columns: 0.5fr 2fr 1fr 1fr;
+        gap: 5px;
+        padding: 8px;
+        font-size: 11px;
+    }
+    
+    .table-row {
+        display: grid;
+        grid-template-columns: 0.5fr 2fr 1fr 1fr;
+        gap: 5px;
+        padding: 8px;
+        font-size: 11px;
+    }
+    
+    .table-row span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .records-container {
+        padding: 5px;
+    }
+    
+    .filter-section,
+    .records-section {
+        padding: 10px;
+    }
+    
+    .table-header,
+    .table-row {
+        grid-template-columns: 0.3fr 2fr 0.8fr 0.8fr;
+        gap: 3px;
+        padding: 6px;
+        font-size: 10px;
+    }
+}
+
 /* Light theme improvements for records page */
 [data-theme="light"] .records-container {
     background: var(--background);

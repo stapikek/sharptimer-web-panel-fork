@@ -5,6 +5,87 @@
     padding: 0 20px;
 }
 
+/* Mobile styles for map records page */
+@media (max-width: 768px) {
+    .map-records-container {
+        margin: 10px auto;
+        padding: 0 10px;
+    }
+    
+    .map-header {
+        padding: 20px;
+    }
+    
+    .map-header h1 {
+        font-size: 2em;
+    }
+    
+    .map-header .player-name {
+        font-size: 1.2em;
+    }
+    
+    .map-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-card h3 {
+        font-size: 14px;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 18px;
+    }
+    
+    .records-table {
+        overflow-x: auto;
+    }
+    
+    .table-header,
+    .table-row {
+        min-width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-records-container {
+        padding: 0 5px;
+    }
+    
+    .map-header {
+        padding: 15px;
+    }
+    
+    .map-header h1 {
+        font-size: 1.5em;
+    }
+    
+    .map-header .player-name {
+        font-size: 1em;
+    }
+    
+    .map-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .stat-card {
+        padding: 12px;
+    }
+    
+    .stat-card h3 {
+        font-size: 12px;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 16px;
+    }
+}
+
 .map-header {
     background: var(--secondary);
     border-radius: var(--borderradius);

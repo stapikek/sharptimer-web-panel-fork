@@ -5,6 +5,114 @@
     padding: 0 20px;
 }
 
+/* Mobile styles for profile page */
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 10px auto;
+        padding: 0 10px;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        gap: 20px;
+    }
+    
+    .player-avatar {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+    }
+    
+    .player-info h1 {
+        font-size: 2em;
+    }
+    
+    .player-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-card h3 {
+        font-size: 14px;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 18px;
+    }
+    
+    .records-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .record-card {
+        padding: 15px;
+    }
+    
+    .record-card h3 {
+        font-size: 16px;
+    }
+    
+    .record-card .time {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 0 5px;
+    }
+    
+    .profile-header {
+        padding: 15px;
+    }
+    
+    .player-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+    
+    .player-info h1 {
+        font-size: 1.5em;
+    }
+    
+    .player-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .stat-card {
+        padding: 12px;
+    }
+    
+    .stat-card h3 {
+        font-size: 12px;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 16px;
+    }
+    
+    .record-card {
+        padding: 12px;
+    }
+    
+    .record-card h3 {
+        font-size: 14px;
+    }
+    
+    .record-card .time {
+        font-size: 16px;
+    }
+}
+
 .profile-header {
     background: var(--secondary);
     border-radius: var(--borderradius);

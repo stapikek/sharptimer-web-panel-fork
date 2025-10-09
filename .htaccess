@@ -1,19 +1,14 @@
 Options -Indexes
-ErrorDocument 404 /404.php
 
 # Ensure PHP passes through existing files
 <IfModule mod_rewrite.c>
-  RewriteEngine On
-  # Do not rewrite existing files or directories
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-
-  # Otherwise, let the request go as-is (no routing rules added)
-</IfModule>
-<IfModule mod_rewrite.c>
     RewriteEngine On
     DirectoryIndex index.php
+
+    # Do not rewrite existing files or directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
 
     # Внутренняя подмена: /path -> /path.php (если файл существует)
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -28,5 +23,5 @@ ErrorDocument 404 /404.php
     RewriteRule ^.*$ 404.php [L]
 </IfModule>
 
-# Обработка 404 ошибок
-ErrorDocument 404 /404.php
+# Обработка 404 ошибок - используем относительный путь
+ErrorDocument 404 404.php

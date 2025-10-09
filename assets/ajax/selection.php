@@ -2,6 +2,7 @@
 require_once(__DIR__ . "/../../core/config.php");
 require_once(__DIR__ . "/../../core/includes/locale.php");
 require_once(__DIR__ . "/../../core/includes/security.php");
+require_once(__DIR__ . "/../../core/includes/path_utils.php");
 
 $i = 0;
 $id = getSafeMapID($conn);
@@ -23,7 +24,7 @@ $result = $stmt->get_result();
 if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){
         $i++;
-        echo '<a href="../pages/profile.php?steamid='.htmlspecialchars($row['SteamID']).'"><div';
+        echo '<a href="' . getProfilePath($row['SteamID']) . '"><div';
         if($i % 2 == 0){
             echo ' id="stripped"';
         }

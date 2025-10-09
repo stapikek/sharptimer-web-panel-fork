@@ -5,7 +5,6 @@
  * @link https://steamcommunity.com/id/stapi1337/
  * @link https://github.com/stapikek
  */
-
 require_once("core/config.php");
 require_once('assets/GameQ/Autoloader.php');
 require_once('core/includes/locale.php');
@@ -24,24 +23,6 @@ include("core/includes/header.php");
 
 <body>
     <div id="top"></div>
-    <div class="mobiletoggler" onclick="toggleMobile()">
-        <button class="hamburger hamburger--spin" type="button">
-            <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-            </span>
-        </button>
-    </div>
-    <div class="mobile-nav">
-        <ul>
-            <?php
-            if (isset($links)) {
-                echo $links;
-            } else {
-                echo "";
-            }
-            ?>
-        </ul>
-    </div>
 
     <?php if ($serverlist === true && !empty($serverq)) { ?>
         <div class="server-container">
@@ -302,7 +283,7 @@ if ($map_param && mapExists($conn, $map_param)) {
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $i++;
-                            echo '<a href="pages/profile.php?steamid=' . htmlspecialchars($row['SteamID']) . '"><div';
+                            echo '<a href="' . getProfilePath($row['SteamID']) . '"><div';
                             if ($i % 2 == 0) {
                                 echo ' id="stripped"';
                             } else {
@@ -349,8 +330,8 @@ if ($map_param && mapExists($conn, $map_param)) {
 
     </footer>
     
-    <script src="/assets/js/main.js" defer></script>
-    <script src="/assets/js/index-inline.js" defer></script>
+    <script src="<?php echo getAssetPath('assets/js/main.js'); ?>" defer></script>
+    <script src="<?php echo getAssetPath('assets/js/index-inline.js'); ?>" defer></script>
 </body>
 
 </html>

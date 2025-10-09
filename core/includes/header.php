@@ -46,13 +46,12 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=17&t=<?php echo time(); ?>">
-    <link rel="stylesheet" type="text/css" href="/assets/css/header.css?version=1&t=<?php echo time(); ?>">
-    <link href="/assets/dist/hamburgers.css?version=2&t=<?php echo time(); ?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo getAssetPath('assets/css/style.css'); ?>?version=17&t=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo getAssetPath('assets/css/header.css'); ?>?version=1&t=<?php echo time(); ?>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo getAssetPath('assets/images/favicon-32x32.png'); ?>">
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo htmlspecialchars($seo_title); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($seo_description); ?>">
@@ -81,7 +80,7 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
             <div class="unified-header-content">
                 <div class="header-content">
                     <div class="logo-section">
-                        <h1><a href="<?php echo $base_url; ?>/index.php"><?php echo $pagetitle; ?></a></h1>
+                        <h1><a href="<?php echo getHomePath(); ?>"><?php echo $pagetitle; ?></a></h1>
                     </div>
                     
                     <div class="search-section">
@@ -92,18 +91,18 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
                     </div>
                     
                     <div class="navigation-buttons">
-                        <a href="<?php echo $base_url; ?>/pages/rules.php" class="nav-button">
+                        <a href="<?php echo getRulesPath(); ?>" class="nav-button">
                             <i class="fa-solid fa-book"></i>
                             <?php echo t('nav_rules'); ?>
                         </a>
                         
-                        <a href="<?php echo $base_url; ?>/pages/records.php" class="nav-button">
+                        <a href="<?php echo getBasePath(); ?>pages/records.php" class="nav-button">
                             <i class="fa-solid fa-trophy"></i>
                             <?php echo t('nav_records'); ?>
                         </a>
                         
                         <?php if (isset($show_profile_link) && $show_profile_link): ?>
-                        <a href="<?php echo $base_url; ?>/pages/profile.php?steamid=<?php echo $steamid; ?>" class="nav-button">
+                        <a href="<?php echo getProfilePath($steamid); ?>" class="nav-button">
                             <i class="fa-solid fa-user-circle"></i>
                             <?php echo t('nav_profile'); ?>
                         </a>
@@ -117,11 +116,11 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
                                 <i class="fa-solid fa-chevron-down"></i>
                             </button>
                             <div class="language-dropdown" id="languageDropdown">
-                                <a href="<?php echo $base_url . getLangUrl('ru'); ?>" class="language-option <?php echo getCurrentLanguage() == 'ru' ? 'active' : ''; ?>">
+                                <a href="<?php echo getLangUrl('ru'); ?>" class="language-option <?php echo getCurrentLanguage() == 'ru' ? 'active' : ''; ?>">
                                     <i class="fa-solid fa-flag"></i>
                                     <?php echo t('language_russian'); ?>
                                 </a>
-                                <a href="<?php echo $base_url . getLangUrl('en'); ?>" class="language-option <?php echo getCurrentLanguage() == 'en' ? 'active' : ''; ?>">
+                                <a href="<?php echo getLangUrl('en'); ?>" class="language-option <?php echo getCurrentLanguage() == 'en' ? 'active' : ''; ?>">
                                     <i class="fa-solid fa-flag"></i>
                                     <?php echo t('language_english'); ?>
                                 </a>
@@ -129,8 +128,14 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
                         </div>
                         
                         <!-- Theme Switcher -->
-                        <button class="theme-switcher" onclick="toggleTheme()" title="<?php echo t('theme_switch'); ?>">
-                            <i class="fa-solid fa-moon" id="theme-icon"></i>
+                        <button class="theme-switcher" onclick="toggleTheme()" title="<?php echo t('theme_switch'); ?>" aria-label="<?php echo t('theme_switch'); ?>">
+                            <div class="theme-switcher-inner">
+                                <i class="fa-solid fa-moon theme-icon-dark" id="theme-icon-dark"></i>
+                                <i class="fa-solid fa-sun theme-icon-light" id="theme-icon-light"></i>
+                            </div>
+                            <div class="theme-switcher-track">
+                                <div class="theme-switcher-thumb"></div>
+                            </div>
                         </button>
                     </div>
                 </div>
@@ -138,8 +143,8 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
         </div>
     </div>
     
-    <script src="/assets/js/site-inline.js?version=1&t=<?php echo time(); ?>" defer></script>
-    <script src="/assets/js/main.js?version=1&t=<?php echo time(); ?>" defer></script>
+    <script src="<?php echo getAssetPath('assets/js/site-inline.js'); ?>?version=1&t=<?php echo time(); ?>" defer></script>
+    <script src="<?php echo getAssetPath('assets/js/main.js'); ?>?version=1&t=<?php echo time(); ?>" defer></script>
     
     <?php
     // Debug: Page load completion

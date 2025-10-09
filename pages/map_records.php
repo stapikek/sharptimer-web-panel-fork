@@ -81,7 +81,7 @@ function formatDate($unix_timestamp) {
 <?php
 include("../core/includes/header.php");
 ?>
-<link rel="stylesheet" type="text/css" href="/assets/css/map-records.css?version=1&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo getAssetPath('assets/css/map-records.css'); ?>?version=1&t=<?php echo time(); ?>">
 
     <div class="map-records-container">
         

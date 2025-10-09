@@ -119,8 +119,8 @@ if (isset($stmt_records)) {
 }
 ?>
 <?php include("../core/includes/header.php"); ?>
-<link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=17&t=<?php echo time(); ?>">
-<link rel="stylesheet" type="text/css" href="/assets/css/records.css?version=1&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo getAssetPath('assets/css/style.css'); ?>?version=17&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo getAssetPath('assets/css/records.css'); ?>?version=1&t=<?php echo time(); ?>">
 
     <div class="records-container">
         <div class="records-header">

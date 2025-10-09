@@ -95,7 +95,7 @@ if ($current_lang == 'ru') {
 <?php
 include("../core/includes/header.php");
 ?>
-<link rel="stylesheet" type="text/css" href="/assets/css/rules.css?version=1&t=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo getAssetPath('assets/css/rules.css'); ?>?version=1&t=<?php echo time(); ?>">
 
     <div class="rules-container">
         

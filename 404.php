@@ -2,6 +2,7 @@
 http_response_code(404);
 require_once 'core/config.php';
 require_once 'core/includes/locale.php';
+require_once 'core/includes/path_utils.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +11,8 @@ require_once 'core/includes/locale.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo t('404_title'); ?> - <?php echo t('site_name'); ?></title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/404.css">
+    <link rel="stylesheet" href="<?php echo getAssetPath('assets/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo getAssetPath('assets/css/404.css'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -27,7 +28,7 @@ require_once 'core/includes/locale.php';
                 <h2 class="error-title"><?php echo t('404_title'); ?></h2>
                 <p class="error-description"><?php echo t('404_description'); ?></p>
                 <div class="error-actions">
-                    <a href="/index.php" class="btn btn-primary">
+                    <a href="<?php echo getHomePath(); ?>" class="btn btn-primary">
                         <i class="fas fa-home"></i>
                         <?php echo t('404_home'); ?>
                     </a>
@@ -39,15 +40,15 @@ require_once 'core/includes/locale.php';
                 <div class="error-suggestions">
                     <h3><?php echo t('404_suggestions_title'); ?></h3>
                     <ul>
-                        <li><a href="/pages/records.php"><?php echo t('nav_records'); ?></a></li>
-                        <li><a href="/pages/rules.php"><?php echo t('nav_rules'); ?></a></li>
-                        <li><a href="/pages/profile.php"><?php echo t('nav_profile'); ?></a></li>
+                        <li><a href="<?php echo getBasePath(); ?>pages/records.php"><?php echo t('nav_records'); ?></a></li>
+                        <li><a href="<?php echo getRulesPath(); ?>"><?php echo t('nav_rules'); ?></a></li>
+                        <li><a href="<?php echo getBasePath(); ?>pages/profile.php"><?php echo t('nav_profile'); ?></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="/assets/js/main.js" defer></script>
+    <script src="<?php echo getAssetPath('assets/js/main.js'); ?>" defer></script>
 </body>
 </html>

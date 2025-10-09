@@ -247,6 +247,8 @@
     .navigation-buttons {
         order: 3;
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
     }
     
     .search-box {
@@ -259,5 +261,90 @@
         height: 40px;
         min-height: 40px;
         padding: 8px 12px;
+        font-size: 0.8em;
+    }
+    
+    /* Mobile theme switcher */
+    .theme-switcher {
+        width: 50px;
+        height: 28px;
+        margin-left: 8px;
+    }
+    
+    .theme-switcher-track {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .theme-switcher-thumb {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .theme-icon-dark,
+    .theme-icon-light {
+        font-size: 10px;
+    }
+    
+    .theme-icon-dark {
+        left: 6px;
+    }
+    
+    .theme-icon-light {
+        right: 6px;
+    }
+    
+    [data-theme="light"] .theme-switcher-track {
+        transform: translateX(22px);
+    }
+    
+    .logo-section h1 {
+        font-size: 1.4em;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .unified-header-content {
+        padding: 0 10px;
+        gap: 10px;
+    }
+    
+    .header-content {
+        gap: 10px;
+    }
+    
+    .navigation-buttons {
+        gap: 5px;
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .nav-button,
+    .language-button {
+        flex: 1;
+        min-width: 0;
+        padding: 6px 8px;
+        font-size: 0.75em;
+        text-align: center;
+    }
+    
+    .nav-button i,
+    .language-button i {
+        font-size: 0.9em;
+    }
+    
+    .logo-section h1 {
+        font-size: 1.2em;
+    }
+    
+    .search-box input {
+        padding: 10px 10px 10px 35px;
+        font-size: 13px;
+    }
+    
+    .search-box i {
+        left: 12px;
+        font-size: 14px;
     }
 }

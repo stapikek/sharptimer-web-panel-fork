@@ -63,6 +63,12 @@ function getLangUrl($lang) {
     $query_params['lang'] = $lang;
     
     $new_query = http_build_query($query_params);
+    
+    // Если это главная страница, возвращаем полный путь
+    if ($path === '/surf/' || $path === '/surf') {
+        return '/surf/' . ($new_query ? '?' . $new_query : '');
+    }
+    
     return $path . ($new_query ? '?' . $new_query : '');
 }
 
