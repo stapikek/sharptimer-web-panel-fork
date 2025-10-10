@@ -1,9 +1,9 @@
 <?php
 // Database connection:
-$servername = "5.129.250.19";
-$username = "decide";
-$password = "r1SPhh8YLbRDpqhj";
-$dbname = "surf";
+$servername = "localhost";
+$username = "user";
+$password = "pass";
+$dbname = "db";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if(!$conn){
     die("connection failed" . mysqli_connect_error());
@@ -95,7 +95,7 @@ $debug_enabled = false;
 // DEBUG API KEYS
 // Centralized API key storage to avoid scattering across files
 $api_keys = [
-    'steam' => 'E456A4E66FFE6593DB0EA862798C8ED2', // Steam Web API Key (leave empty if not used)
+    'steam' => '', // Steam Web API Key (leave empty if not used)
 // add other keys as needed, for example:
 // 'faceit' => '', - coming soon
 ];
