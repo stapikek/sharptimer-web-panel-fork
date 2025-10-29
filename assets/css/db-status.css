@@ -1,0 +1,38 @@
+/* Database Status Indicator Styles */
+.db-status-indicator {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.db-status-indicator.db-ok {
+    background: #4CAF50;
+}
+
+.db-status-indicator.db-error {
+    background: #f44336;
+    animation: pulse 2s infinite;
+}
+
+.db-status-indicator:hover {
+    transform: scale(1.05);
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.db-status-indicator i {
+    margin-right: 5px;
+}

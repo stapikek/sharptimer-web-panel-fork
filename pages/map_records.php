@@ -8,7 +8,7 @@ $steamid = getSafeSteamID($conn);
 $mapname = getSafeMapName($conn);
 
 if (!$steamid || !$mapname) {
-    header("Location: ../index.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -18,7 +18,7 @@ $stmt_player->execute();
 $result_player = $stmt_player->get_result();
 
 if ($result_player->num_rows === 0) {
-    header("Location: ../index.php");
+    header("Location: index.php");
     exit();
 }
 

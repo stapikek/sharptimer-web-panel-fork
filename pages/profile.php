@@ -9,7 +9,7 @@ require_once("../steam/steam_avatar.php");
 $steamid = getSafeSteamID($conn);
 
 if (!$steamid) {
-    header("Location: ../index.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -19,7 +19,7 @@ $stmt->execute();
 $result_player = $stmt->get_result();
 
 if ($result_player->num_rows === 0) {
-    header("Location: ../index.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -164,13 +164,9 @@ include("../core/includes/header.php");
         </div>
     </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof loadSteamAvatarInline === 'function') {
-                loadSteamAvatarInline('<?php echo $steamid; ?>');
-            }
-        });
+        window.profileSteamID = '<?php echo $steamid; ?>';
     </script>
+    <script src="<?php echo getAssetPath('assets/js/profile.js'); ?>?version=1&t=<?php echo time(); ?>" defer></script>
 </body>
 </html>

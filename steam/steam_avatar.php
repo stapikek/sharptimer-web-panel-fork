@@ -1,9 +1,9 @@
 <?php
 
-require_once(__DIR__ . "/../core/config.php");
+require_once("../core/config.php");
 
 function getSteamAvatarData($steamid) {
-    $api_key = function_exists('get_api_key') ? get_api_key('steam') : '';
+    $api_key = getSteamAPIKey();
     
     if (empty($api_key)) {
         return [

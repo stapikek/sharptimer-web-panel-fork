@@ -1,14 +1,24 @@
 <?php
 function isValidSteamID64($steamid) {
-    return preg_match('/^7656119[0-9]{10}$/', $steamid);
+    // More strict validation for SteamID64
+    return preg_match('/^7656119[0-9]{10}$/', $steamid) && strlen($steamid) === 17;
 }
 
 function isValidMapName($mapname) {
-    return preg_match('/^[a-zA-Z0-9_\-]+$/', $mapname);
+    // More strict validation for map names
+    return preg_match('/^[a-zA-Z0-9_\-]+$/', $mapname) && 
+           strlen($mapname) >= 3 && 
+           strlen($mapname) <= 64 &&
+           !preg_match('/^[0-9]+$/', $mapname); // Prevent pure numeric map names
 }
 
 function isValidSearchQuery($query) {
-    return !preg_match('/[<>"\']/', $query) && strlen($query) <= 100 && !preg_match('/[;\\\'\"]/', $query);
+    // Enhanced validation for search queries
+    return !preg_match('/[<>"\']/', $query) && 
+           strlen($query) >= 1 && 
+           strlen($query) <= 100 && 
+           !preg_match('/[;\\\'\"]/', $query) &&
+           !preg_match('/\b(union|select|insert|update|delete|drop|create|alter|exec|execute)\b/i', $query);
 }
 
 function getSafeSteamID($conn) {
@@ -22,7 +32,8 @@ function getSafeSteamID($conn) {
         return null;
     }
     
-    return $conn->real_escape_string($steamid);
+    // Return validated SteamID without escaping since we'll use prepared statements
+    return $steamid;
 }
 
 function getSafeMapName($conn) {
@@ -36,7 +47,8 @@ function getSafeMapName($conn) {
         return null;
     }
     
-    return $conn->real_escape_string($mapname);
+    // Return validated map name without escaping since we'll use prepared statements
+    return $mapname;
 }
 
 function getSafeSearchQuery($conn) {
@@ -50,7 +62,8 @@ function getSafeSearchQuery($conn) {
         return null;
     }
     
-    return $conn->real_escape_string($query);
+    // Return validated query without escaping since we'll use prepared statements
+    return $query;
 }
 
 function getSafeMapID($conn) {
@@ -64,7 +77,8 @@ function getSafeMapID($conn) {
         return null;
     }
     
-    return $conn->real_escape_string($id);
+    // Return validated map ID without escaping since we'll use prepared statements
+    return $id;
 }
 
 function mapExists($conn, $mapname) {
@@ -90,7 +104,16 @@ function playerExists($conn, $steamid) {
 }
 
 function sanitizeInput($input) {
-    return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
+    // Remove null bytes and control characters
+    $input = str_replace(["\0", "\r", "\n", "\t", "\v", "\f"], '', $input);
+    
+    // Trim whitespace
+    $input = trim($input);
+    
+    // Remove any remaining control characters
+    $input = preg_replace('/[\x00-\x1F\x7F]/', '', $input);
+    
+    return $input;
 }
 
 function validateInteger($value) {
@@ -98,6 +121,18 @@ function validateInteger($value) {
 }
 
 function validatePositiveInteger($value) {
-    return validateInteger($value) && $value > 0;
+    return filter_var($value, FILTER_VALIDATE_INT, array("options" => array("min_range" => 1))) !== false;
+}
+
+function logSecurityEvent($event, $details = '') {
+    // Log security events for monitoring
+    $log_entry = date('Y-m-d H:i:s') . " - Security Event: " . $event;
+    if ($details) {
+        $log_entry .= " - Details: " . $details;
+    }
+    $log_entry .= " - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . "\n";
+    
+    // Write to security log file
+    error_log($log_entry, 3, __DIR__ . '/../logs/security.log');
 }
 ?>

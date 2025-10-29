@@ -4,7 +4,7 @@ require_once(__DIR__ . "/locale.php");
 require_once(__DIR__ . "/path_utils.php");
 require_once(__DIR__ . "/session.php");
 $seo_title = null; $seo_description = null; $seo_keywords = null; $seo_author = null; $seo_og_image = null; $seo_theme_color = null;
-require_once(__DIR__ . "/../ceo.php");
+require_once(__DIR__ . "/../../core/ceo.php");
 
 $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? '';
@@ -64,16 +64,26 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
     <title><?php echo htmlspecialchars($seo_title); ?></title>
     
     <!-- Предварительная загрузка темы для предотвращения мигания -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            const theme = savedTheme || 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-        })();
-    </script>
+    <script src="<?php echo getAssetPath('assets/js/theme-preloader.js'); ?>?version=1&t=<?php echo time(); ?>"></script>
 </head>
 
 <body>
+    
+    <?php
+    // Индикатор статуса базы данных (только в режиме отладки)
+    if (isset($debug_enabled) && $debug_enabled) {
+        $db_status = getDatabaseStatus();
+        $status_class = $db_status['status'] === 'ok' ? 'db-ok' : 'db-error';
+        $status_text = $db_status['status'] === 'ok' ? 'БД OK' : 'БД ERROR';
+        ?>
+        <div class="db-status-indicator <?php echo $status_class; ?>" title="<?php echo htmlspecialchars($db_status['message']); ?>">
+            <i class="fa-solid fa-database"></i>
+            <span><?php echo $status_text; ?></span>
+        </div>
+        <link rel="stylesheet" type="text/css" href="<?php echo getAssetPath('assets/css/db-status.css'); ?>?version=1&t=<?php echo time(); ?>">
+        <?php
+    }
+    ?>
     
     <div class="header-layout">
         <div class="unified-header">
@@ -100,13 +110,6 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
                             <i class="fa-solid fa-trophy"></i>
                             <?php echo t('nav_records'); ?>
                         </a>
-                        
-                        <?php if (isset($show_profile_link) && $show_profile_link): ?>
-                        <a href="<?php echo getProfilePath($steamid); ?>" class="nav-button">
-                            <i class="fa-solid fa-user-circle"></i>
-                            <?php echo t('nav_profile'); ?>
-                        </a>
-                        <?php endif; ?>
                         
                         <!-- Language Switcher -->
                         <div class="language-switcher">

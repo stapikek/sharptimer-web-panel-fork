@@ -1,10 +1,31 @@
 <?php
 
 function getSteamProfile($steamid) {
+    $api_key = getSteamAPIKey();
+    
+    if ($api_key) {
+        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$api_key}&steamids={$steamid}";
+        
+        $response = @file_get_contents($api_url);
+        if ($response) {
+            $data = json_decode($response, true);
+            if (isset($data['response']['players'][0])) {
+                $player = $data['response']['players'][0];
+                return array(
+                    'steamid' => $steamid,
+                    'personaname' => $player['personaname'] ?? 'Player',
+                    'avatar' => $player['avatarfull'] ?? "https://steamcommunity.com/profiles/{$steamid}/avatar/",
+                    'profileurl' => $player['profileurl'] ?? 'https://steamcommunity.com/profiles/' . $steamid
+                );
+            }
+        }
+    }
+    
+    // Fallback если API недоступен
     $profile_data = array(
         'steamid' => $steamid,
         'personaname' => 'Player',
-        'avatar' => getSteamAvatarUrl($steamid),
+        'avatar' => "https://steamcommunity.com/profiles/{$steamid}/avatar/",
         'profileurl' => 'https://steamcommunity.com/profiles/' . $steamid
     );
     
@@ -29,18 +50,31 @@ function getSteamAvatarUrl($steamid) {
     return "https://steamcommunity.com/profiles/{$steamid}/avatar/";
 }
 
-function isSteamProfilePublic($steamid) {
-    $profile_url = 'https://steamcommunity.com/profiles/' . $steamid;
+function getSteamStatus($steamid) {
+    $api_key = getSteamAPIKey();
     
-    $headers = @get_headers($profile_url, 1);
-    if ($headers && strpos($headers[0], '200') !== false) {
-        return true;
+    if ($api_key) {
+        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$api_key}&steamids={$steamid}";
+        
+        $response = @file_get_contents($api_url);
+        if ($response) {
+            $data = json_decode($response, true);
+            if (isset($data['response']['players'][0])) {
+                $player = $data['response']['players'][0];
+                $personastate = $player['personastate'] ?? 0;
+                
+                $status = array(
+                    'online' => $personastate > 0,
+                    'ingame' => $personastate == 1,
+                    'status' => $personastate == 0 ? 'offline' : ($personastate == 1 ? 'ingame' : 'online'),
+                    'game' => $player['gameextrainfo'] ?? null
+                );
+                return $status;
+            }
+        }
     }
     
-    return false;
-}
-
-function getSteamStatus($steamid) {
+    // Fallback если API недоступен
     $status = array(
         'online' => false,
         'ingame' => false,
@@ -51,10 +85,8 @@ function getSteamStatus($steamid) {
 }
 
 function getSteamAPIKey() {
-    if (function_exists('get_api_key')) {
-        return get_api_key('steam');
-    }
-    return false;
+    global $steam_api_key;
+    return !empty($steam_api_key) ? $steam_api_key : false;
 }
 
 function convertSteamID($steamid) {

@@ -1,8 +1,8 @@
 <?php 
-    require_once(__DIR__ . "/../../core/config.php");
-    require_once(__DIR__ . "/../../core/includes/locale.php");
-    require_once(__DIR__ . "/../../core/includes/security.php");
-    require_once(__DIR__ . "/../../core/includes/path_utils.php");
+    require_once("../../core/config.php");
+    require_once("../../core/includes/locale.php");
+    require_once("../../core/includes/security.php");
+    require_once("../../core/includes/path_utils.php");
     
     $i = 0;
     $input = getSafeSearchQuery($conn);

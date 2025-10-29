@@ -1,8 +1,8 @@
 <?php
-require_once(__DIR__ . "/../../core/config.php");
-require_once(__DIR__ . "/../../core/includes/locale.php");
-require_once(__DIR__ . "/../../core/includes/security.php");
-require_once(__DIR__ . "/../../core/includes/path_utils.php");
+require_once("../../core/config.php");
+require_once("../../core/includes/locale.php");
+require_once("../../core/includes/security.php");
+require_once("../../core/includes/path_utils.php");
 
 $i = 0;
 $id = getSafeMapID($conn);
@@ -15,6 +15,9 @@ if (!$id) {
     echo "<div id='strangerdanger' class='row'>" . t('invalid_map') . "</div>";
     exit();
 }
+
+// Use safe limit from config
+$limit = 100; // Default limit, can be made configurable
 
 $stmt = $conn->prepare("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?");
 debug_sql("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?", [$id, $limit]);

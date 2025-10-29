@@ -5,31 +5,22 @@
 return [
     // Общие
     'site_title' => 'DECIDE',
-    'home' => 'Главная',
-    'back' => 'Назад',
-    'profile' => 'Профиль',
-    'loading' => 'Загрузка...',
-    'error' => 'Ошибка',
-    'search' => 'Поиск',
     'search_placeholder' => 'Поиск по никнейму или SteamID64',
     
     // Навигация
-    'nav_home' => 'Главная',
     'nav_profile' => 'Профиль',
-    'nav_my_profile' => 'Мой профиль',
     'nav_rules' => 'Правила',
     'nav_records' => 'Рекорды',
-    'nav_back_to_leaderboard' => 'Назад к лидерборду',
-    'nav_back_to_profile' => 'Назад к профилю',
     
-    // Авторизация
-    'login_steam' => 'Войти через Steam',
-    'logout' => 'Выйти',
-    'welcome' => 'Добро пожаловать',
+    // Языки
+    'language' => 'Язык',
+    'language_russian' => 'Русский',
+    'language_english' => 'English',
+    
+    // Переключатель темы
+    'theme_switch' => 'Переключить тему',
     
     // Лидерборд
-    'leaderboard_title' => 'Таблица лидеров',
-    'rank' => 'Место',
     'player' => 'Игрок',
     'time' => 'Время',
     'map' => 'Карта',
@@ -42,8 +33,7 @@ return [
     'steamid64' => 'SteamID64',
     'steamid3' => 'SteamID3',
     'status' => 'Статус',
-    'online' => 'Онлайн',
-    'offline' => 'Оффлайн',
+    'status_offline' => 'Не в сети',
     'total_records' => 'Всего рекордов',
     'maps_completed' => 'Карт пройдено',
     'best_time' => 'Лучшее время',
@@ -52,102 +42,29 @@ return [
     'all_maps' => 'Все карты',
     'no_records_found' => 'Нет рекордов',
     'no_maps_found' => 'Нет карт',
+    'open_in_steam' => 'Открыть в Steam',
     
     // Рекорды карты
     'map_records' => 'Рекорды карты',
-    
-    // Переключатель темы
-    'theme_switch' => 'Переключить тему',
-    'theme_light' => 'Светлая тема',
-    'theme_dark' => 'Темная тема',
-    
-    // Рекорды
-    'records_page_title' => 'Рекорды',
-    'showing_all_records' => 'Показываются все рекорды со всех карт',
-    'select_map' => 'Выберите карту',
-    'show_records' => 'Показать рекорды',
     'total_attempts' => 'Всего попыток',
     'first_attempt' => 'Первая попытка',
     'all_records_on_map' => 'Все рекорды на карте',
     'best_record' => 'Лучший рекорд',
-    'record_rank' => 'Место',
-    'record_time' => 'Время',
-    'record_date' => 'Дата',
     'no_records_on_map' => 'Нет рекордов на этой карте',
     
-    // Мой профиль
-    'my_profile_title' => 'Мой профиль',
-    'recent_records' => 'Последние рекорды',
-    'map' => 'Карта',
-    'time' => 'Время',
-    'date' => 'Дата',
-    'attempts' => 'Прохождений',
-    'no_recent_records' => 'Нет недавних рекордов',
-    
-    // Статистика
-    'statistics' => 'Статистика',
-    'records' => 'Рекорды',
-    'attempts' => 'Попытки',
-    'completion_rate' => 'Процент прохождения',
-    
-    // Ошибки
-    'error_loading' => 'Ошибка загрузки',
-    'error_player_not_found' => 'Игрок не найден',
-    'error_map_not_found' => 'Карта не найдена',
-    'error_invalid_steamid' => 'Неверный SteamID',
-    
-    // Языки
-    'language' => 'Язык',
-    'language_russian' => 'Русский',
-    'language_english' => 'English',
-    
-    // Время
-    'time_format' => 'd.m.Y H:i',
-    'time_seconds' => 'сек',
-    'time_minutes' => 'мин',
-    
-    // Карты
-    'map_surf' => 'Surf',
-    'map_kz' => 'KZ',
-    'map_bhop' => 'BunnyHop',
-    'map_other' => 'Другие',
-    
-    // Статусы
-    'status_online' => 'В сети',
-    'status_ingame' => 'В игре',
-    'status_offline' => 'Не в сети',
-    
-    // Дополнительно
-    'steam_community' => 'Steam Community',
-    'open_in_steam' => 'Открыть в Steam',
-    'view_profile' => 'Посмотреть профиль',
-    'view_records' => 'Посмотреть рекорды',
-    'view_map_records' => 'Рекорды на карте',
-    'invalid_map' => 'Неверная карта',
-    'invalid_search' => 'Неверный поисковый запрос',
-    'invalid_steamid' => 'Неверный SteamID',
-    
-    // Страница рекордов
+    // Рекорды
     'records_page_title' => 'Рекорды',
-    'select_map' => 'Выберите карту',
-    'all_maps' => 'Все карты',
-    'show_records' => 'Показать',
+    'show_records' => 'Показать рекорды',
     'place' => 'Место',
     
-    // Страница 404
-    '404_title' => 'Страница не найдена',
-    '404_description' => 'К сожалению, запрашиваемая страница не существует или была перемещена.',
-    '404_home' => 'На главную',
-    '404_back' => 'Назад',
-    '404_suggestions_title' => 'Возможно, вас заинтересует:',
+    // Ошибки
+    'invalid_search' => 'Неверный поисковый запрос',
+    'invalid_map' => 'Неверная карта',
     
     // Мониторинг серверов
     'server_dead' => 'Недоступен',
     'server_map' => 'Карта',
     'server_players' => 'Игроки',
-    'server_connect' => 'Подключиться',
-    'server_online' => 'Онлайн',
-    'server_offline' => 'Оффлайн',
     'server_separator' => '----',
     
     // Категории карт
@@ -155,5 +72,13 @@ return [
     'map_kz' => 'KZ',
     'map_bhop' => 'BHOP',
     'map_other' => 'ДРУГИЕ',
+    
+    // Страница 404
+    '404_title' => 'Страница не найдена',
+    'site_name' => 'DECIDE',
+    '404_description' => 'К сожалению, запрашиваемая страница не существует или была перемещена.',
+    '404_home' => 'На главную',
+    '404_back' => 'Назад',
+    '404_suggestions_title' => 'Возможно, вас заинтересует:',
 ];
 ?>

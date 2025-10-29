@@ -7,8 +7,15 @@ require_once("../core/includes/path_utils.php");
 $page_title = t('records_page_title') . " - " . t('site_title');
 $page_description = t('records_page_title');
 
-// Получаем выбранную карту из GET параметра, по умолчанию показываем все карты
-$selected_map = isset($_GET['map']) ? $_GET['map'] : 'all';
+// Get selected map from GET parameter, default to show all maps
+$selected_map = 'all';
+
+if (isset($_GET['map'])) {
+    $map_param = getSafeMapName($conn);
+    if ($map_param) {
+        $selected_map = $map_param;
+    }
+}
 
 // Проверяем и санитизируем выбранную карту
 // Исключаем бонусные карты
