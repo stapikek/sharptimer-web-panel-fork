@@ -148,7 +148,6 @@ Get map leaderboard
 ```bash
 curl "http://your-domain/assets/ajax/selection.php?id=surf_whiteout"
 ```
-<<<<<<< HEAD
 
 ## Fork
 
