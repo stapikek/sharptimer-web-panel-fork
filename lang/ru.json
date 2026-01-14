@@ -1,0 +1,125 @@
+{
+  "site_title": "DECIDE",
+  "search_placeholder": "Поиск по никнейму или SteamID64",
+
+  "nav_profile": "Профиль",
+  "nav_rules": "Правила",
+  "nav_records": "Рекорды",
+
+  "language": "Язык",
+  "language_russian": "Русский",
+  "language_english": "English",
+
+  "theme_switch": "Переключить тему",
+
+  "player": "Игрок",
+  "time": "Время",
+  "map": "Карта",
+  "no_records": "Нет записей",
+  "player_not_found": "Игрок не найден",
+
+  "player_profile": "Профиль игрока",
+  "steam_profile": "Steam профиль",
+  "steamid64": "SteamID64",
+  "steamid3": "SteamID3",
+  "status": "Статус",
+  "status_offline": "Не в сети",
+  "total_records": "Всего рекордов",
+  "maps_completed": "Карт пройдено",
+  "best_time": "Лучшее время",
+  "average_time": "Среднее время",
+  "best_records": "Лучшие рекорды",
+  "all_maps": "Все карты",
+  "no_records_found": "Нет рекордов",
+  "no_maps_found": "Нет карт",
+  "open_in_steam": "Открыть в Steam",
+
+  "map_records": "Рекорды карты",
+  "total_attempts": "Всего попыток",
+  "first_attempt": "Первая попытка",
+  "all_records_on_map": "Все рекорды на карте",
+  "best_record": "Лучший рекорд",
+  "no_records_on_map": "Нет рекордов на этой карте",
+
+  "records_page_title": "Рекорды",
+  "show_records": "Показать рекорды",
+  "place": "Место",
+
+  "invalid_search": "Неверный поисковый запрос",
+  "invalid_map": "Неверная карта",
+
+  "server_dead": "Недоступен",
+  "server_map": "Карта",
+  "server_players": "Игроки",
+  "server_separator": "----",
+
+  "map_surf": "SURF",
+  "map_kz": "KZ",
+  "map_bhop": "BHOP",
+  "map_other": "ДРУГИЕ",
+
+  "404_title": "Страница не найдена",
+  "site_name": "DECIDE",
+  "404_description": "К сожалению, запрашиваемая страница не существует или была перемещена.",
+  "404_home": "На главную",
+  "404_back": "Назад",
+  "404_suggestions_title": "Возможно, вас заинтересует:",
+
+  "rules_page_title": "Правила сервера",
+  "rules_title": "Правила сервера",
+  "rules_general": "Общие правила",
+  "rules_surf": "Правила Surf режима",
+  "rules_violations": "Нарушения и наказания",
+  "rules_appeals": "Обжалование наказаний",
+  "footer_text": "Незнание правил не освобождает от ответственности",
+
+  "rules_general_content": [
+    "Запрещено использование читов, багов и эксплоитов",
+    "Уважайте других игроков и администрацию",
+    "Запрещен спам в чате",
+    "Не мешайте другим игрокам проходить карты",
+    "Следуйте указаниям администрации"
+  ],
+
+  "rules_surf_content": [
+    "Используйте только стандартные настройки движения",
+    "Запрещено использование скриптов для автоматического страфинга",
+    "Разрешены только стандартные привязки клавиш",
+    "Запрещено использование макросов",
+    "Рекорды с подозрительным временем будут проверены"
+  ],
+
+  "rules_violations_content": [
+    "<strong>Предупреждение</strong> - за мелкие нарушения",
+    "<strong>Мут (1-24 часа)</strong> - за спам или оскорбления",
+    "<strong>Кик</strong> - за повторные нарушения",
+    "<strong>Бан (1 день - навсегда)</strong> - за серьезные нарушения",
+    "<strong>Удаление рекордов</strong> - за использование читов"
+  ],
+
+  "rules_appeals_content": [
+    "Обращения принимаются только через Discord",
+    "Предоставьте доказательства вашей невиновности",
+    "Решение администрации окончательно",
+    "Повторные обращения по одному вопросу игнорируются"
+  ],
+
+  "footer_desc": "Best surf server in Russia",
+
+  "db_error_title": "Database Connection Error",
+  "db_connection_problem": "Connection Problem",
+  "db_try_again": "Try Again",
+  "db_status_unavailable": "Status: Database Unavailable",
+  "db_unavailable_message": "Database is temporarily unavailable. Please try again later."
+  ,
+  "no_playerrecords_table_msg": "Таблица <strong>playerrecords</strong> не найдена в базе данных. Пожалуйста, импортируйте данные или проверьте подключение к правильной базе.",
+  "no_records_table_absent": "Нет записей для отображения — таблица <strong>playerrecords</strong> отсутствует.",
+  "map_search_placeholder": "Поиск карт...",
+  "map_search_clear": "Очистить",
+  "steam_api_key_not_set": "Steam API ключ не настроен",
+  "steam_api_connection_failed": "Не удалось подключиться к Steam API",
+  "steam_profile_not_found": "Профиль Steam не найден",
+  "steam_avatar_success": "Аватарка успешно получена",
+  "steam_avatar_default_used": "Используется дефолтная аватарка",
+  "console_avatar_loaded": "Аватарка уже загружена для SteamID:"
+}

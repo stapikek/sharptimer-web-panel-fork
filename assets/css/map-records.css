@@ -1,11 +1,9 @@
-/* Map Records Page Styles */
 .map-records-container {
     max-width: 1200px;
     margin: 20px auto;
     padding: 0 20px;
 }
 
-/* Mobile styles for map records page */
 @media (max-width: 768px) {
     .map-records-container {
         margin: 10px auto;

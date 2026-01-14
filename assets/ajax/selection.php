@@ -7,20 +7,17 @@ require_once("../../core/includes/path_utils.php");
 $i = 0;
 $id = getSafeMapID($conn);
 
-// Debug: Map selection
-debug_log("Map selection called with map: " . ($id ?: 'invalid'));
-
-if (!$id) {
-    debug_warn("Invalid map ID provided");
+if (!$id || empty($id)) {
     echo "<div id='strangerdanger' class='row'>" . t('invalid_map') . "</div>";
     exit();
 }
 
-// Use safe limit from config
-$limit = 100; // Default limit, can be made configurable
+$limit = (int)100;
+if ($limit <= 0 || $limit > 1000) {
+    $limit = 100;
+}
 
-$stmt = $conn->prepare("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?");
-debug_sql("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM PlayerRecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?", [$id, $limit]);
+$stmt = $conn->prepare("SELECT DISTINCT `SteamID`, `PlayerName`, `FormattedTime`, `MapName` FROM playerrecords WHERE MapName = ? ORDER BY `TimerTicks` ASC LIMIT ?");
 $stmt->bind_param("si", $id, $limit);
 $stmt->execute();
 $result = $stmt->get_result();

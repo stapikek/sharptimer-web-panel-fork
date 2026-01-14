@@ -1,0 +1,125 @@
+{
+  "site_title": "DECIDE",
+  "search_placeholder": "Search by nickname or SteamID64",
+
+  "nav_profile": "Profile",
+  "nav_rules": "Rules",
+  "nav_records": "Records",
+
+  "language": "Language",
+  "language_russian": "Русский",
+  "language_english": "English",
+
+  "theme_switch": "Toggle theme",
+
+  "player": "Player",
+  "time": "Time",
+  "map": "Map",
+  "no_records": "No records",
+  "player_not_found": "Player not found",
+
+  "player_profile": "Player Profile",
+  "steam_profile": "Steam Profile",
+  "steamid64": "SteamID64",
+  "steamid3": "SteamID3",
+  "status": "Status",
+  "status_offline": "Offline",
+  "total_records": "Total Records",
+  "maps_completed": "Maps Completed",
+  "best_time": "Best Time",
+  "average_time": "Average Time",
+  "best_records": "Best Records",
+  "all_maps": "All Maps",
+  "no_records_found": "No records found",
+  "no_maps_found": "No maps found",
+  "open_in_steam": "Open in Steam",
+
+  "map_records": "Map Records",
+  "total_attempts": "Total Attempts",
+  "first_attempt": "First Attempt",
+  "all_records_on_map": "All Records on Map",
+  "best_record": "Best Record",
+  "no_records_on_map": "No records on this map",
+
+  "records_page_title": "Records",
+  "show_records": "Show records",
+  "place": "Place",
+
+  "invalid_search": "Invalid search query",
+  "invalid_map": "Invalid map",
+
+  "server_dead": "Dead",
+  "server_map": "Map",
+  "server_players": "Players",
+  "server_separator": "----",
+
+  "map_surf": "SURF",
+  "map_kz": "KZ",
+  "map_bhop": "BHOP",
+  "map_other": "OTHER",
+
+  "404_title": "Page Not Found",
+  "site_name": "DECIDE",
+  "404_description": "Sorry, the requested page does not exist or has been moved.",
+  "404_home": "Go Home",
+  "404_back": "Go Back",
+  "404_suggestions_title": "You might be interested in:",
+
+  "rules_page_title": "Server Rules",
+  "rules_title": "Server Rules",
+  "rules_general": "General Rules",
+  "rules_surf": "Surf Mode Rules",
+  "rules_violations": "Violations and Punishments",
+  "rules_appeals": "Appeal Process",
+  "footer_text": "Ignorance of the rules does not exempt from responsibility",
+
+  "rules_general_content": [
+    "No cheats, bugs, or exploits allowed",
+    "Respect other players and administration",
+    "No chat spam",
+    "Do not interfere with other players completing maps",
+    "Follow administration instructions"
+  ],
+
+  "rules_surf_content": [
+    "Use only standard movement settings",
+    "No scripts for automatic strafing",
+    "Only standard key bindings allowed",
+    "No macros allowed",
+    "Records with suspicious times will be reviewed"
+  ],
+
+  "rules_violations_content": [
+    "<strong>Warning</strong> - for minor violations",
+    "<strong>Mute (1-24 hours)</strong> - for spam or insults",
+    "<strong>Kick</strong> - for repeated violations",
+    "<strong>Ban (1 day - permanent)</strong> - for serious violations",
+    "<strong>Record deletion</strong> - for cheating"
+  ],
+
+  "rules_appeals_content": [
+    "Appeals are only accepted through Discord",
+    "Provide evidence of your innocence",
+    "Administration decision is final",
+    "Repeated appeals for the same issue are ignored"
+  ],
+
+  "footer_desc": "Best surf server in Russia",
+
+  "db_error_title": "Database Connection Error",
+  "db_connection_problem": "Connection Problem",
+  "db_try_again": "Try Again",
+  "db_status_unavailable": "Status: Database Unavailable",
+  "db_unavailable_message": "Database is temporarily unavailable. Please try again later."
+  ,
+  "no_playerrecords_table_msg": "Table <strong>playerrecords</strong> not found in the database. Please import data or check connection to the correct database.",
+  "no_records_table_absent": "No records to display — table <strong>playerrecords</strong> is missing.",
+  "map_search_placeholder": "Search maps...",
+  "map_search_clear": "Clear",
+  "steam_api_key_not_set": "Steam API key is not configured",
+  "steam_api_connection_failed": "Failed to connect to Steam API",
+  "steam_profile_not_found": "Steam profile not found",
+  "steam_avatar_success": "Avatar successfully retrieved",
+  "steam_avatar_default_used": "Using default avatar",
+  "console_avatar_loaded": "Avatar already loaded for SteamID:"
+}

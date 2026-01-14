@@ -4,7 +4,9 @@ function getSteamProfile($steamid) {
     $api_key = getSteamAPIKey();
     
     if ($api_key) {
-        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$api_key}&steamids={$steamid}";
+        $encoded_steamid = urlencode($steamid);
+        $encoded_key = urlencode($api_key);
+        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$encoded_key}&steamids={$encoded_steamid}";
         
         $response = @file_get_contents($api_url);
         if ($response) {
@@ -20,8 +22,7 @@ function getSteamProfile($steamid) {
             }
         }
     }
-    
-    // Fallback если API недоступен
+
     $profile_data = array(
         'steamid' => $steamid,
         'personaname' => 'Player',
@@ -36,7 +37,9 @@ function getSteamAvatarUrl($steamid) {
     $api_key = getSteamAPIKey();
     
     if ($api_key) {
-        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$api_key}&steamids={$steamid}";
+        $encoded_steamid = urlencode($steamid);
+        $encoded_key = urlencode($api_key);
+        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$encoded_key}&steamids={$encoded_steamid}";
         
         $response = @file_get_contents($api_url);
         if ($response) {
@@ -54,7 +57,9 @@ function getSteamStatus($steamid) {
     $api_key = getSteamAPIKey();
     
     if ($api_key) {
-        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$api_key}&steamids={$steamid}";
+        $encoded_steamid = urlencode($steamid);
+        $encoded_key = urlencode($api_key);
+        $api_url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$encoded_key}&steamids={$encoded_steamid}";
         
         $response = @file_get_contents($api_url);
         if ($response) {
@@ -74,7 +79,6 @@ function getSteamStatus($steamid) {
         }
     }
     
-    // Fallback если API недоступен
     $status = array(
         'online' => false,
         'ingame' => false,

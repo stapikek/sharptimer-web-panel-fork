@@ -1,4 +1,3 @@
-// Theme preloader to prevent flashing
 (function() {
     const savedTheme = localStorage.getItem('theme');
     const theme = savedTheme || 'dark';

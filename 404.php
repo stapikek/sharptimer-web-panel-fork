@@ -19,7 +19,7 @@ require_once 'core/includes/path_utils.php';
     <?php include 'core/includes/header.php'; ?>
     
     <main class="main-content">
-        <div class="wrapper">
+        <div class="wrapper-404">
             <div class="error-container">
                 <div class="error-icon">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -42,7 +42,6 @@ require_once 'core/includes/path_utils.php';
                     <ul>
                         <li><a href="<?php echo getBasePath(); ?>pages/records.php"><?php echo t('nav_records'); ?></a></li>
                         <li><a href="<?php echo getRulesPath(); ?>"><?php echo t('nav_rules'); ?></a></li>
-                        <li><a href="<?php echo getBasePath(); ?>pages/profile.php"><?php echo t('nav_profile'); ?></a></li>
                     </ul>
                 </div>
             </div>

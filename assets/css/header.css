@@ -1,10 +1,8 @@
-/* Header Layout Styles */
 .header-layout {
     width: 100%;
     z-index: 100;
     position: relative;
     margin: 0;
-    /* padding: 20px 0; */
 }
 
 .unified-header {
@@ -116,7 +114,6 @@
     align-items: center;
 }
 
-/* Common styles for all navigation buttons */
 .nav-button,
 .language-button {
     height: 44px;
@@ -132,14 +129,6 @@
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
-}
-
-.nav-button:hover,
-.language-button:hover {
-    background: var(--hover);
-    color: white;
-    border-color: var(--hover);
-    transform: translateY(-2px);
 }
 
 .language-switcher {
@@ -213,7 +202,6 @@
     box-shadow: 0 4px 15px rgba(102, 192, 244, 0.3);
 }
 
-/* Mobile styles for header layout */
 @media (max-width: 768px) {
     .header-layout {
         padding: 10px 0;
@@ -254,8 +242,7 @@
     .search-box {
         max-width: 100%;
     }
-    
-    /* Mobile button heights */
+
     .nav-button,
     .language-button {
         height: 40px;
@@ -264,7 +251,6 @@
         font-size: 0.8em;
     }
     
-    /* Mobile theme switcher */
     .theme-switcher {
         width: 50px;
         height: 28px;
@@ -303,7 +289,6 @@
     }
 }
 
-/* Extra small mobile devices */
 @media (max-width: 480px) {
     .unified-header-content {
         padding: 0 10px;
@@ -315,7 +300,7 @@
     }
     
     .navigation-buttons {
-        gap: 5px;
+        gap: 6px;
         justify-content: space-between;
         width: 100%;
     }
@@ -324,14 +309,19 @@
     .language-button {
         flex: 1;
         min-width: 0;
-        padding: 6px 8px;
+        padding: 10px 8px;
         font-size: 0.75em;
         text-align: center;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .nav-button i,
     .language-button i {
         font-size: 0.9em;
+        margin-right: 2px;
     }
     
     .logo-section h1 {
@@ -339,8 +329,9 @@
     }
     
     .search-box input {
-        padding: 10px 10px 10px 35px;
+        padding: 11px 10px 11px 35px;
         font-size: 13px;
+        min-height: 42px;
     }
     
     .search-box i {
@@ -348,3 +339,105 @@
         font-size: 14px;
     }
 }
+
+@media (max-width: 360px) {
+    .unified-header {
+        gap: 10px;
+        padding: 10px 0;
+    }
+    
+    .unified-header-content {
+        padding: 0 8px;
+        gap: 8px;
+    }
+    
+    .header-content {
+        gap: 8px;
+        flex-direction: column;
+    }
+    
+    .navigation-buttons {
+        gap: 5px;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .nav-button,
+    .language-button {
+        flex: 0 1 calc(50% - 2.5px);
+        min-height: 44px;
+        padding: 8px 6px;
+        font-size: 0.65em;
+        gap: 3px;
+    }
+    
+    .search-box input {
+        padding: 10px 8px 10px 32px;
+        font-size: 12px;
+        min-height: 40px;
+    }
+    
+    .search-box i {
+        left: 10px;
+        font-size: 12px;
+    }
+    
+    .logo-section h1 {
+        font-size: 1.1em;
+    }
+    
+    .theme-switcher {
+        width: 46px;
+        height: 26px;
+        margin-left: 4px;
+    }
+}
+
+/* Landscape phone optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+    .unified-header {
+        gap: 8px;
+        padding: 6px 0;
+    }
+    
+    .unified-header-content {
+        gap: 6px;
+    }
+    
+    .header-content {
+        gap: 6px;
+    }
+    
+    .navigation-buttons {
+        gap: 4px;
+    }
+    
+    .search-box input {
+        padding: 8px 8px 8px 32px;
+        font-size: 11px;
+        min-height: 36px;
+    }
+    
+    .nav-button,
+    .language-button {
+        min-height: 36px;
+        padding: 6px 6px;
+        font-size: 0.7em;
+    }
+}
+
+/* Ultra-small screens below 320px */
+@media (max-width: 320px) {
+    .search-box input {
+        font-size: 11px;
+        padding: 8px 8px 8px 30px;
+    }
+    
+    .nav-button,
+    .language-button {
+        font-size: 0.6em;
+        padding: 6px 4px;
+    }
+}
+

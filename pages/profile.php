@@ -13,7 +13,7 @@ if (!$steamid) {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT DISTINCT `SteamID`, `PlayerName` FROM PlayerRecords WHERE `SteamID` = ? ORDER BY `PlayerName` ASC LIMIT 1");
+$stmt = $conn->prepare("SELECT DISTINCT `SteamID`, `PlayerName` FROM playerrecords WHERE `SteamID` = ? ORDER BY `PlayerName` ASC LIMIT 1");
 $stmt->bind_param("s", $steamid);
 $stmt->execute();
 $result_player = $stmt->get_result();
@@ -39,14 +39,14 @@ $stmt_stats = $conn->prepare("SELECT
     COUNT(DISTINCT MapName) as maps_completed,
     MIN(TimerTicks) as best_time_ticks,
     AVG(TimerTicks) as avg_time_ticks
-    FROM PlayerRecords WHERE `SteamID` = ?");
+    FROM playerrecords WHERE `SteamID` = ?");
 $stmt_stats->bind_param("s", $steamid);
 $stmt_stats->execute();
 $result_stats = $stmt_stats->get_result();
 $stats = $result_stats->fetch_assoc();
 
 $stmt_best = $conn->prepare("SELECT `MapName`, `FormattedTime`, `TimerTicks` 
-    FROM PlayerRecords 
+    FROM playerrecords 
     WHERE `SteamID` = ? 
     ORDER BY `TimerTicks` ASC 
     LIMIT 10");
@@ -55,13 +55,13 @@ $stmt_best->execute();
 $result_best_records = $stmt_best->get_result();
 
 $stmt_maps = $conn->prepare("SELECT DISTINCT `MapName`, 
-    (SELECT `FormattedTime` FROM PlayerRecords pr2 
-     WHERE pr2.SteamID = ? AND pr2.MapName = PlayerRecords.MapName 
+    (SELECT `FormattedTime` FROM playerrecords pr2 
+    WHERE pr2.SteamID = ? AND pr2.MapName = playerrecords.MapName 
      ORDER BY pr2.TimerTicks ASC LIMIT 1) as best_time,
-    (SELECT `TimerTicks` FROM PlayerRecords pr2 
-     WHERE pr2.SteamID = ? AND pr2.MapName = PlayerRecords.MapName 
+    (SELECT `TimerTicks` FROM playerrecords pr2 
+    WHERE pr2.SteamID = ? AND pr2.MapName = playerrecords.MapName 
      ORDER BY pr2.TimerTicks ASC LIMIT 1) as best_time_ticks
-    FROM PlayerRecords 
+    FROM playerrecords 
     WHERE `SteamID` = ? 
     ORDER BY `MapName` ASC");
 $stmt_maps->bind_param("sss", $steamid, $steamid, $steamid);
@@ -93,8 +93,7 @@ include("../core/includes/header.php");
             <div class="player-avatar" id="player-avatar">
                 <?php if ($avatar_data['success'] && $avatar_data['avatar_url']): ?>
                     <img src="<?php echo htmlspecialchars($avatar_data['avatar_url']); ?>" 
-                         alt="Steam Avatar" 
-                         style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--hover);">
+                         alt="Steam Avatar">
                 <?php else: ?>
                     <?php echo $avatar_data['default_html'] ?? getDefaultAvatar($steamid); ?>
                 <?php endif; ?>
@@ -103,9 +102,9 @@ include("../core/includes/header.php");
                 <h1><?php echo htmlspecialchars($player_data['PlayerName']); ?></h1>
                 <p><strong><?php echo t('steamid64'); ?>:</strong> <?php echo htmlspecialchars($steamid); ?></p>
                 <p><strong><?php echo t('steamid3'); ?>:</strong> <?php echo htmlspecialchars($steam_formats['steamid3']); ?></p>
-                <p><strong><?php echo t('steam_profile'); ?>:</strong> <a href="<?php echo $steam_profile['profileurl']; ?>" target="_blank" style="color: var(--hover);"><?php echo t('open_in_steam'); ?></a></p>
+                <p><strong><?php echo t('steam_profile'); ?>:</strong> <a href="<?php echo $steam_profile['profileurl']; ?>" target="_blank" class="profile-link"><?php echo t('open_in_steam'); ?></a></p>
                 <?php if ($steam_status['online']): ?>
-                    <p><strong><?php echo t('status'); ?>:</strong> <span style="color: #4CAF50;"><?php echo t('status_' . $steam_status['status']); ?></span></p>
+                    <p><strong><?php echo t('status'); ?>:</strong> <span class="status-online"><?php echo t('status_' . $steam_status['status']); ?></span></p>
                 <?php endif; ?>
             </div>
         </div>
@@ -151,7 +150,7 @@ include("../core/includes/header.php");
                 <div class="maps-grid">
                     <?php if ($result_player_maps->num_rows > 0): ?>
                         <?php while ($map = $result_player_maps->fetch_assoc()): ?>
-                            <div class="map-card" onclick="showMapRecordsInline('<?php echo $steamid; ?>', '<?php echo $map['MapName']; ?>')">
+                            <div class="map-card">
                                 <div class="map-name"><?php echo htmlspecialchars($map['MapName']); ?></div>
                                 <div class="map-time"><?php echo htmlspecialchars($map['best_time']); ?></div>
                             </div>
@@ -163,6 +162,8 @@ include("../core/includes/header.php");
             </div>
         </div>
     </div>
+    
+    <?php include("../core/includes/footer.php"); ?>
     
     <script>
         window.profileSteamID = '<?php echo $steamid; ?>';

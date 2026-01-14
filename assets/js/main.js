@@ -1,4 +1,9 @@
-        //scroll down:
+/**
+ * @author stapi
+ *
+ * @link https://steamcommunity.com/id/stapi1337/
+ * @link https://github.com/stapikek
+*/    
         window.onscroll = function(){BoxShadows()};
         function BoxShadows(){
             let leaderboardinfo = document.querySelector(".leaderboard").getBoundingClientRect();
@@ -8,7 +13,7 @@
                 document.querySelector(".info").classList.remove("boxshadows");
             }
         }
-        //Toggle mobile menu
+
         var mappeno = document.querySelector(".mappeno");
         function toggleMaps(){
             mappeno.classList.toggle("invisible");

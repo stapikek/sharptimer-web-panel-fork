@@ -1,27 +1,17 @@
 Options -Indexes
-
-# Ensure PHP passes through existing files
 <IfModule mod_rewrite.c>
     RewriteEngine On
     DirectoryIndex index.php
-
-    # Do not rewrite existing files or directories
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
-
-    # Внутренняя подмена: /path -> /path.php (если файл существует)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}\.php -f
     RewriteRule ^(.+)$ $1.php [L,QSA]
-
-    # 404 для несуществующих страниц (только если не файл и не директория и нет .php)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}\.php !-f
     RewriteRule ^.*$ 404.php [L]
 </IfModule>
-
-# Обработка 404 ошибок - используем относительный путь
 ErrorDocument 404 404.php

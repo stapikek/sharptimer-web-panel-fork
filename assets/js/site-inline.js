@@ -1,56 +1,109 @@
-// Get base path for relative URLs
 function getBasePath() {
-    const path = window.location.pathname;
-    const pathSegments = path.split('/').filter(segment => segment);
-    
-    // If we're in a subfolder (like /surf/), return the subfolder path
-    if (pathSegments.length > 0 && pathSegments[0] !== '') {
-        return '/' + pathSegments[0] + '/';
+    const path = window.location.pathname || '/';
+    if (path.indexOf('/pages') !== -1 || path.indexOf('/api') !== -1 || path.indexOf('/steam') !== -1 || path.indexOf('/assets') !== -1) {
+        return '../';
     }
-    
-    return '/';
+
+    return '';
 }
 
 function toggleLanguageDropdown(){const dropdown=document.getElementById('languageDropdown');dropdown.classList.toggle('show');}
 document.addEventListener('click',function(event){const dropdown=document.getElementById('languageDropdown');const button=document.querySelector('.language-button');if(dropdown&&button&&!dropdown.contains(event.target)&&!button.contains(event.target)){dropdown.classList.remove('show');}});
 
-// Theme switcher functionality
 function toggleTheme() {
     const html = document.documentElement;
     const currentTheme = html.getAttribute('data-theme');
-    
-    if (currentTheme === 'light') {
-        html.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        html.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-    }
-    
-    // Добавляем эффект "щелчка" для лучшего UX
-    const themeSwitcher = document.querySelector('.theme-switcher');
-    themeSwitcher.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-        themeSwitcher.style.transform = '';
-    }, 150);
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
 }
 
-// Load saved theme on page load (оптимизировано для предотвращения мигания)
-document.addEventListener('DOMContentLoaded', function() {
-    const savedTheme = localStorage.getItem('theme');
-    
-    // Тема уже установлена в head, просто убеждаемся что она правильная
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-    if (savedTheme && savedTheme !== currentTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    }
-});
+if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('theme');
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (savedTheme && savedTheme !== currentTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    });
+}
 
-function loadSteamAvatarInline(steamid){console.log('Аватарка уже загружена для SteamID:',steamid);} 
-function showMapRecordsInline(steamid,mapName){window.location.href=`${getBasePath()}pages/map_records.php?steamid=${steamid}&map=${encodeURIComponent(mapName)}`;}
+function loadSteamAvatarInline(steamid){ }
 document.addEventListener('DOMContentLoaded',function(){var el=document.getElementById('player-avatar');});
 
-// Index page handlers
+function removeLangFromUrl(url) {
+    try {
+        var u = new URL(url, window.location.origin);
+        u.searchParams.delete('lang');
+        return u.pathname + (u.search ? u.search : '') + (u.hash ? u.hash : '');
+    } catch (e) {
+        return url;
+    }
+}
+
+function bindLanguageSwitcher() {
+    var elems = document.querySelectorAll('.lang-switch');
+    if (!elems || elems.length === 0) return;
+
+    elems.forEach(function(el) {
+        el.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            var lang = el.getAttribute('data-lang');
+            if (!lang) return;
+            var apiPath = getBasePath() + 'api/set_lang.php';
+            fetch(apiPath, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: 'lang=' + encodeURIComponent(lang),
+                credentials: 'same-origin'
+            }).then(function(resp){
+                if (!resp.ok) throw new Error('Network error');
+                return resp.json();
+            }).then(function(data){
+                if (data && data.ok) {
+                    var newUrl = removeLangFromUrl(window.location.href);
+                    window.location.href = newUrl;
+                } else {
+                    window.location.reload();
+                }
+            }).catch(function(){
+                window.location.reload();
+            });
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() { try { bindLanguageSwitcher(); } catch(e) { console.error(e); } });
+
+function bindMapSearch() {
+    var input = document.getElementById('mapSearch');
+    var clearBtn = document.getElementById('mapSearchClear');
+    if (!input) return;
+
+    function doFilter() {
+        var q = input.value.trim().toLowerCase();
+        var items = document.querySelectorAll('.mappeno .selector');
+        items.forEach(function(it){
+            var name = (it.textContent || it.innerText || '').toLowerCase();
+            if (q === '' || name.indexOf(q) !== -1) {
+                it.style.display = '';
+            } else {
+                it.style.display = 'none';
+            }
+        });
+    }
+
+    input.addEventListener('input', doFilter);
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function(){ input.value = ''; doFilter(); input.focus(); });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    try { bindMapSearch(); } catch(e) { console.error('bindMapSearch error', e); }
+});
+
 function bindIndexHandlers(){
     if (typeof $ === 'function'){
         $('.selector').on('click', function () {
@@ -73,4 +126,14 @@ function bindIndexHandlers(){
         });
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        if (document.querySelector('.selector')) {
+            bindIndexHandlers();
+        }
+    } catch (e) {
+        console.error('Error binding index handlers:', e);
+    }
+});
 

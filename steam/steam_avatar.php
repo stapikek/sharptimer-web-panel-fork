@@ -10,7 +10,7 @@ function getSteamAvatarData($steamid) {
             'success' => false,
             'avatar_url' => null,
             'fallback' => true,
-            'message' => 'Steam API ключ не настроен'
+            'message' => t('steam_api_key_not_set')
         ];
     }
     
@@ -22,7 +22,7 @@ function getSteamAvatarData($steamid) {
             'success' => false,
             'avatar_url' => null,
             'fallback' => true,
-            'message' => 'Не удалось подключиться к Steam API'
+            'message' => t('steam_api_connection_failed')
         ];
     }
     
@@ -32,7 +32,7 @@ function getSteamAvatarData($steamid) {
             'success' => false,
             'avatar_url' => null,
             'fallback' => true,
-            'message' => 'Профиль Steam не найден'
+            'message' => t('steam_profile_not_found')
         ];
     }
     
@@ -46,15 +46,10 @@ function getSteamAvatarData($steamid) {
         'personaname' => $player['personaname'] ?? 'Player',
         'profileurl' => $player['profileurl'] ?? "https://steamcommunity.com/profiles/{$steamid}",
         'fallback' => false,
-        'message' => 'Аватарка успешно получена'
+        'message' => t('steam_avatar_success')
     ];
 }
 
-/**
- * Получить дефолтную аватарку
- * @param string $steamid SteamID64
- * @return string HTML дефолтной аватарки
- */
 function getDefaultAvatar($steamid) {
     $hash = crc32($steamid);
     $colors = [
@@ -107,11 +102,6 @@ function getDefaultAvatar($steamid) {
     </div>";
 }
 
-/**
- * Получить аватарку игрока (основная функция)
- * @param string $steamid SteamID64
- * @return array Данные аватарки
- */
 function getPlayerAvatar($steamid) {
     $steam_data = getSteamAvatarData($steamid);
     
@@ -124,7 +114,7 @@ function getPlayerAvatar($steamid) {
         'avatar_url' => null,
         'fallback' => true,
         'default_html' => getDefaultAvatar($steamid),
-        'message' => 'Используется дефолтная аватарка'
+        'message' => t('steam_avatar_default_used')
     ];
 }
 

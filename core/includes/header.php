@@ -10,10 +10,6 @@ $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' :
 $host = $_SERVER['HTTP_HOST'] ?? '';
 $base_url = $host ? ($scheme . '://' . $host) : '';
 
-// Debug: Page load start
-$debug_start_time = microtime(true);
-debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
-
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -63,14 +59,12 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
     <meta name="theme-color" content="<?php echo htmlspecialchars($seo_theme_color); ?>">
     <title><?php echo htmlspecialchars($seo_title); ?></title>
     
-    <!-- Предварительная загрузка темы для предотвращения мигания -->
     <script src="<?php echo getAssetPath('assets/js/theme-preloader.js'); ?>?version=1&t=<?php echo time(); ?>"></script>
 </head>
 
 <body>
     
     <?php
-    // Индикатор статуса базы данных (только в режиме отладки)
     if (isset($debug_enabled) && $debug_enabled) {
         $db_status = getDatabaseStatus();
         $status_class = $db_status['status'] === 'ok' ? 'db-ok' : 'db-error';
@@ -111,7 +105,6 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
                             <?php echo t('nav_records'); ?>
                         </a>
                         
-                        <!-- Language Switcher -->
                         <div class="language-switcher">
                             <button class="language-button" onclick="toggleLanguageDropdown()">
                                 <i class="fa-solid fa-globe"></i>
@@ -119,18 +112,17 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
                                 <i class="fa-solid fa-chevron-down"></i>
                             </button>
                             <div class="language-dropdown" id="languageDropdown">
-                                <a href="<?php echo getLangUrl('ru'); ?>" class="language-option <?php echo getCurrentLanguage() == 'ru' ? 'active' : ''; ?>">
+                                <a href="#" data-lang="ru" class="language-option lang-switch <?php echo getCurrentLanguage() == 'ru' ? 'active' : ''; ?>">
                                     <i class="fa-solid fa-flag"></i>
                                     <?php echo t('language_russian'); ?>
                                 </a>
-                                <a href="<?php echo getLangUrl('en'); ?>" class="language-option <?php echo getCurrentLanguage() == 'en' ? 'active' : ''; ?>">
+                                <a href="#" data-lang="en" class="language-option lang-switch <?php echo getCurrentLanguage() == 'en' ? 'active' : ''; ?>">
                                     <i class="fa-solid fa-flag"></i>
                                     <?php echo t('language_english'); ?>
                                 </a>
                             </div>
                         </div>
-                        
-                        <!-- Theme Switcher -->
+
                         <button class="theme-switcher" onclick="toggleTheme()" title="<?php echo t('theme_switch'); ?>" aria-label="<?php echo t('theme_switch'); ?>">
                             <div class="theme-switcher-inner">
                                 <i class="fa-solid fa-moon theme-icon-dark" id="theme-icon-dark"></i>
@@ -150,9 +142,5 @@ debug_log("Page load started: " . ($_SERVER['REQUEST_URI'] ?? 'unknown'));
     <script src="<?php echo getAssetPath('assets/js/main.js'); ?>?version=1&t=<?php echo time(); ?>" defer></script>
     
     <?php
-    // Debug: Page load completion
-    if (isset($debug_start_time)) {
-        debug_performance($debug_start_time, "Page load");
-        debug_log("Header loaded successfully");
-    }
     ?>
+

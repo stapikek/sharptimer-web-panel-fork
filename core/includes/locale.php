@@ -4,13 +4,11 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Получаем язык по умолчанию из config.php
 require_once __DIR__ . '/../config.php';
 $default_language = isset($default_language) ? $default_language : 'ru';
 
-// Проверяем, что язык по умолчанию поддерживается
 if (!in_array($default_language, ['ru', 'en'])) {
-    $default_language = 'ru'; // Fallback на русский
+    $default_language = 'ru';
 }
 
 if (isset($_GET['lang']) && in_array($_GET['lang'], ['ru', 'en'])) {
@@ -24,9 +22,20 @@ if (isset($_GET['lang']) && in_array($_GET['lang'], ['ru', 'en'])) {
 }
 
 function loadTranslations($lang) {
-    $translation_file = __DIR__ . "/translations/{$lang}.php";
-    if (file_exists($translation_file)) {
-        return include($translation_file);
+    $json_file = __DIR__ . '/../../lang/' . $lang . '.json';
+    if (file_exists($json_file)) {
+        $data = json_decode(file_get_contents($json_file), true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+            $extra_file = __DIR__ . '/../../lang/' . $lang . '.extra.json';
+            if (file_exists($extra_file)) {
+                $extra = json_decode(file_get_contents($extra_file), true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($extra)) {
+                    $data = array_merge($data, $extra);
+                }
+            }
+
+            return $data;
+        }
     }
     return [];
 }
@@ -35,18 +44,23 @@ $translations = loadTranslations($current_language);
 
 function t($key, $params = []) {
     global $translations;
-    
-    if (isset($translations[$key])) {
-        $text = $translations[$key];
-        
-        foreach ($params as $param_key => $param_value) {
-            $text = str_replace('{' . $param_key . '}', $param_value, $text);
-        }
-        
-        return $text;
+
+    if (!isset($translations[$key])) {
+        return $key;
     }
-    
-    return $key;
+
+    $value = $translations[$key];
+
+    if (is_array($value) && empty($params)) {
+        return $value;
+    }
+
+    $text = (string)$value;
+    foreach ($params as $param_key => $param_value) {
+        $text = str_replace('{' . $param_key . '}', $param_value, $text);
+    }
+
+    return $text;
 }
 
 function getLangUrl($lang) {
@@ -61,8 +75,6 @@ function getLangUrl($lang) {
     $query_params['lang'] = $lang;
     
     $new_query = http_build_query($query_params);
-    
-    // Если это главная страница, возвращаем полный путь
     if ($path === '/surf/' || $path === '/surf') {
         return '/surf/' . ($new_query ? '?' . $new_query : '');
     }

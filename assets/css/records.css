@@ -1,16 +1,12 @@
-/* Стили для страницы рекордов */
-
 .records-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    /* background: var(--background); */
     min-height: calc(100vh - 200px);
     position: relative;
     z-index: 1;
 }
 
-/* Mobile styles for records page */
 @media (max-width: 768px) {
     .records-container {
         padding: 10px;
@@ -84,7 +80,73 @@
     }
 }
 
-/* Light theme improvements for records page */
+@media (max-width: 360px) {
+    .records-container {
+        padding: 3px;
+        min-height: calc(100vh - 150px);
+    }
+    
+    .filter-section {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+    
+    .filter-section h2 {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+    
+    .map-dropdown {
+        width: 100%;
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .records-section {
+        padding: 8px;
+    }
+    
+    .records-section h2 {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .table-header,
+    .table-row {
+        grid-template-columns: 2fr 0.7fr 0.7fr;
+        gap: 2px;
+        padding: 5px;
+        font-size: 9px;
+    }
+    
+    .table-header span:first-child,
+    .table-row span:first-child {
+        display: none;
+    }
+}
+
+/* Landscape phone optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+    .records-container {
+        padding: 5px;
+    }
+    
+    .filter-section {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .records-section {
+        padding: 8px;
+    }
+    
+    .table-header,
+    .table-row {
+        padding: 4px;
+        font-size: 9px;
+    }
+}
+
 [data-theme="light"] .records-container {
     background: var(--background);
 }
@@ -148,7 +210,6 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Секция фильтров */
 .filter-section {
     background: var(--glass-bg);
     padding: 20px;
@@ -160,7 +221,6 @@
     z-index: 2;
 }
 
-/* Стили для формы фильтров */
 .filter-form {
     display: flex;
     align-items: center;
@@ -183,32 +243,13 @@
     white-space: nowrap;
 }
 
-
 .select-wrapper {
     position: relative;
     min-width: 260px;
     z-index: 4;
 }
 
-.select-wrapper::after {
-    content: "\f078"; /* fa-chevron-down */
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--fontcolor);
-    opacity: 0.7;
-    pointer-events: none;
-    transition: color 0.3s ease;
-    z-index: 5;
-}
-
 .map-dropdown {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
     width: 100%;
     padding: 12px 44px 12px 14px;
     border: 2px solid var(--hover);
@@ -226,13 +267,6 @@
 
 .map-dropdown:hover {
     border-color: var(--hover);
-}
-
-.map-dropdown:focus {
-    outline: none;
-    border-color: var(--hover);
-    box-shadow: 0 0 0 4px rgba(245, 47, 47, 0.12);
-    background: var(--background);
 }
 
 .map-dropdown option {
@@ -259,7 +293,6 @@
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -268,14 +301,6 @@
     margin-left: auto;
 }
 
-.show-button:hover {
-    background: var(--hover);
-    opacity: 0.9;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(245, 47, 47, 0.3);
-}
-
-/* Секция рекордов */
 .records-section {
     background: var(--glass-bg);
     border-radius: 12px;
@@ -360,7 +385,6 @@
     color: var(--fontcolor);
 }
 
-/* Сообщение об отсутствии рекордов */
 .no-records {
     text-align: center;
     padding: 60px 20px;
@@ -375,7 +399,6 @@
     margin: 10px 0;
 }
 
-/* Примечание о лимите */
 .records-note {
     margin-top: 20px;
     text-align: center;
@@ -391,7 +414,6 @@
     margin-right: 5px;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .records-container {
         padding: 15px;
@@ -437,7 +459,7 @@
     }
     
     .col-map {
-        display: none; /* Скрываем колонку карты на очень маленьких экранах */
+        display: none; 
     }
     
     .table-header .col-map,
@@ -446,23 +468,21 @@
     }
 }
 
-/* Стили для топ-3 мест */
 .table-row:nth-child(1) .col-rank {
-    color: #ffd700; /* Золото */
+    color: #ffd700; 
     font-size: 20px;
 }
 
 .table-row:nth-child(2) .col-rank {
-    color: #c0c0c0; /* Серебро */
+    color: #c0c0c0; 
     font-size: 19px;
 }
 
 .table-row:nth-child(3) .col-rank {
-    color: #cd7f32; /* Бронза */
+    color: #cd7f32;
     font-size: 18px;
 }
 
-/* Анимация загрузки */
 .records-table {
     animation: fadeInUp 0.6s ease-out;
 }

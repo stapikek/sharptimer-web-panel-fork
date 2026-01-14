@@ -23,12 +23,10 @@ if (file_exists($ceo_config_path)) {
     }
 }
 
-// Allow page-level overrides via $page_title, $page_description, $page_keywords
 if (isset($page_title)) { $ceo['title'] = $page_title; }
 if (isset($page_description)) { $ceo['description'] = $page_description; }
 if (isset($page_keywords)) { $ceo['keywords'] = $page_keywords; }
 
-// Export variables used by header
 $seo_title = $ceo['title'];
 $seo_description = $ceo['description'];
 $seo_keywords = $ceo['keywords'];

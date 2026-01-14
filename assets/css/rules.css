@@ -1,14 +1,11 @@
-/* Rules Page Styles */
 .rules-container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
-    /* Optimize scrolling performance */
     contain: layout style paint;
     transform: translateZ(0);
 }
 
-/* Mobile styles for rules page */
 @media (max-width: 768px) {
     .rules-container {
         padding: 10px;
@@ -74,6 +71,87 @@
     }
 }
 
+@media (max-width: 360px) {
+    .rules-container {
+        padding: 3px;
+    }
+    
+    .rules-header {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .rules-header h1 {
+        font-size: 1.2em;
+        gap: 8px;
+    }
+    
+    .rules-header h1 i {
+        font-size: 0.7em;
+    }
+    
+    .rule-section {
+        padding: 10px;
+        margin-bottom: 10px;
+        gap: 10px;
+    }
+    
+    .rule-section h2 {
+        font-size: 1em;
+        margin-bottom: 8px;
+        gap: 6px;
+    }
+    
+    .rule-section h2 i {
+        font-size: 0.8em;
+    }
+    
+    .rule-section p,
+    .rule-section li {
+        font-size: 12px;
+    }
+    
+    .rule-section ul {
+        padding-left: 15px;
+    }
+    
+    .rule-section li {
+        margin-bottom: 5px;
+    }
+}
+
+/* Landscape phone optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+    .rules-container {
+        padding: 5px;
+    }
+    
+    .rules-header {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .rules-header h1 {
+        font-size: 1.2em;
+        gap: 6px;
+    }
+    
+    .rule-section {
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+    
+    .rule-section h2 {
+        font-size: 0.95em;
+        margin-bottom: 6px;
+    }
+    
+    .rule-section p,
+    .rule-section li {
+        font-size: 12px;
+    }
+}
+
 .rules-header {
     text-align: center;
     margin-bottom: 30px;
@@ -83,7 +161,6 @@
     border: 1px solid var(--glass-border);
     border-radius: var(--borderradius);
     box-shadow: var(--shadow);
-    /* Optimize rendering */
     will-change: auto;
     transform: translateZ(0);
     contain: layout style paint;
@@ -116,7 +193,6 @@
     border-radius: var(--borderradius);
     padding: 25px;
     box-shadow: var(--shadow);
-    /* Optimize performance during scroll */
     will-change: auto;
     transform: translateZ(0);
     contain: layout style paint;
@@ -206,7 +282,6 @@
     border-radius: var(--borderradius);
     box-shadow: var(--shadow);
     text-align: center;
-    /* Optimize rendering */
     transform: translateZ(0);
     contain: layout style paint;
 }
@@ -227,7 +302,6 @@
     font-size: 1.2em;
 }
 
-/* Color coding for different rule sections */
 .rules-section:nth-child(1) h2 {
     color: #ff6b6b;
 }
@@ -260,13 +334,11 @@
     color: #a8e6cf;
 }
 
-/* Mobile styles */
 @media (max-width: 768px) {
     .rules-container {
         padding: 10px;
     }
-    
-    /* Reduce backdrop-filter on mobile for better performance */
+
     .rules-header,
     .rules-section,
     .rules-footer {
@@ -317,7 +389,6 @@
     }
 }
 
-/* Optimized animation for section loading - only on initial load */
 @media (prefers-reduced-motion: no-preference) {
     .rules-section {
         opacity: 0;
@@ -341,7 +412,6 @@
     }
 }
 
-/* Fallback for reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
     .rules-section {
         opacity: 1;
@@ -349,7 +419,6 @@
     }
 }
 
-/* Optimized hover effects for better interactivity */
 @media (hover: hover) and (pointer: fine) {
     .rules-section h2:hover {
         transform: scale(1.01);
@@ -363,7 +432,6 @@
     }
 }
 
-/* Performance optimization for low-end devices */
 @media (max-width: 768px) and (max-resolution: 150dpi) {
     .rules-header,
     .rules-section,
@@ -372,7 +440,6 @@
         background: rgba(0, 0, 0, 0.8);
     }
     
-    /* Disable animations on low-end devices */
     .rules-section {
         animation: none !important;
         opacity: 1 !important;

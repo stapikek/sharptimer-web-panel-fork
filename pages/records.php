@@ -7,7 +7,6 @@ require_once("../core/includes/path_utils.php");
 $page_title = t('records_page_title') . " - " . t('site_title');
 $page_description = t('records_page_title');
 
-// Get selected map from GET parameter, default to show all maps
 $selected_map = 'all';
 
 if (isset($_GET['map'])) {
@@ -17,27 +16,23 @@ if (isset($_GET['map'])) {
     }
 }
 
-// Проверяем и санитизируем выбранную карту
-// Исключаем бонусные карты
 if ($selected_map && stripos($selected_map, '_bonus') !== false) {
     $selected_map = 'all';
 }
 
 if ($selected_map && $selected_map !== 'all') {
-    // Проверяем, что карта существует в базе
-    $stmt_check = $conn->prepare("SELECT COUNT(*) as count FROM PlayerRecords WHERE MapName = ?");
+    $stmt_check = $conn->prepare("SELECT COUNT(*) as count FROM playerrecords WHERE MapName = ?");
     $stmt_check->bind_param("s", $selected_map);
     $stmt_check->execute();
     $result_check = $stmt_check->get_result();
     $check_data = $result_check->fetch_assoc();
     
     if ($check_data['count'] == 0) {
-        $selected_map = 'all'; // Сбрасываем если карта не найдена
+        $selected_map = 'all';
     }
 }
 
-// Получаем список всех карт для выпадающего меню (исключая бонусные)
-$stmt_maps = $conn->prepare("SELECT DISTINCT MapName FROM PlayerRecords WHERE MapName NOT LIKE '%\\_bonus%' ORDER BY MapName ASC");
+$stmt_maps = $conn->prepare("SELECT DISTINCT MapName FROM playerrecords WHERE MapName NOT LIKE '%\\_bonus%' ORDER BY MapName ASC");
 $stmt_maps->execute();
 $result_maps = $stmt_maps->get_result();
 $maps = [];
@@ -47,12 +42,10 @@ if ($result_maps->num_rows > 0) {
     }
 }
 
-// Получаем рекорды в зависимости от выбранной карты
 $records = [];
-$limit = 100; // Ограничение на количество записей
+$limit = 100; 
 
 if ($selected_map && $selected_map !== 'all') {
-    // Рекорды для конкретной карты
     $stmt_records = $conn->prepare("
         SELECT 
             PlayerName, 
@@ -60,14 +53,13 @@ if ($selected_map && $selected_map !== 'all') {
             FormattedTime, 
             SteamID,
             TimerTicks
-        FROM PlayerRecords 
+        FROM playerrecords 
         WHERE MapName = ? 
         ORDER BY TimerTicks ASC 
         LIMIT ?
     ");
     $stmt_records->bind_param("si", $selected_map, $limit);
 } elseif ($selected_map === 'all') {
-    // Все рекорды (лучший рекорд каждого игрока на каждой карте)
     $stmt_records = $conn->prepare("
         SELECT 
             pr.PlayerName, 
@@ -75,10 +67,10 @@ if ($selected_map && $selected_map !== 'all') {
             pr.FormattedTime, 
             pr.SteamID,
             pr.TimerTicks
-        FROM PlayerRecords pr
+        FROM playerrecords pr
         INNER JOIN (
             SELECT SteamID, MapName, MIN(TimerTicks) as best_time
-            FROM PlayerRecords
+            FROM playerrecords
             WHERE MapName NOT LIKE '%\\_bonus%'
             GROUP BY SteamID, MapName
         ) best ON pr.SteamID = best.SteamID 
@@ -90,7 +82,6 @@ if ($selected_map && $selected_map !== 'all') {
     ");
     $stmt_records->bind_param("i", $limit);
 } else {
-    // По умолчанию показываем топ рекорды со всех карт
     $stmt_records = $conn->prepare("
         SELECT 
             pr.PlayerName, 
@@ -98,10 +89,10 @@ if ($selected_map && $selected_map !== 'all') {
             pr.FormattedTime, 
             pr.SteamID,
             pr.TimerTicks
-        FROM PlayerRecords pr
+        FROM playerrecords pr
         INNER JOIN (
             SELECT SteamID, MapName, MIN(TimerTicks) as best_time
-            FROM PlayerRecords
+            FROM playerrecords
             WHERE MapName NOT LIKE '%\\_bonus%'
             GROUP BY SteamID, MapName
         ) best ON pr.SteamID = best.SteamID 
@@ -201,6 +192,8 @@ if (isset($stmt_records)) {
             </div>
         <?php endif; ?>
     </div>
+
+    <?php include("../core/includes/footer.php"); ?>
 
 </body>
 </html>
