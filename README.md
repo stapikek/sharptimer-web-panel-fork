@@ -157,5 +157,3 @@ This project is a fork of the original [SharpTimer Web Panel](https://github.com
 ---
 
 **Fork created with ❤️ for CS2 community by stapi**
-=======
->>>>>>> d68d1692b6fe91fdb2c114a7d7f5246218c03781
